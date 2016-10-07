@@ -83,9 +83,13 @@
 	            canvas.width = 256;
 	            canvas.height = 256;
 	
-	            // Obtain a rendering context and fill the canvas with black color
+	            // Obtain a rendering context
 	            var context = canvas.getContext('2d');
-	            context.fillRect(0, 0, 256, 256);
+	
+	            //  Create a texture, fill it and copy it into the canvas
+	            var texture = new tg.Texture();
+	            texture.fill(1, 0.25, 1, 1);
+	            context.putImageData(texture.getImageData(), 0, 0);
 	
 	            // Add the canvas to the html DOM
 	            document.body.appendChild(canvas);
@@ -109,18 +113,86 @@
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	
+	var _Texture = __webpack_require__(2);
+	
+	Object.defineProperty(exports, 'Texture', {
+	    enumerable: true,
+	    get: function get() {
+	        return _Texture.Texture;
+	    }
+	});
 	var distribution = exports.distribution = {
 	    baseName: 'es6-texgen-lib',
 	    version: '0.1.0',
 	    fullName: 'es6-texgen-lib-v0.1.0'
 	};
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	/**
+	 *
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Texture = exports.Texture = function () {
+	    function Texture() {
+	        _classCallCheck(this, Texture);
+	
+	        this.texture = new Float32Array(256 * 256 * 4);
+	    }
+	
+	    _createClass(Texture, [{
+	        key: 'setPixel',
+	        value: function setPixel(x, y, r, g, b, a) {
+	            this.texture[(x + y * 256) * 4] = r;
+	            this.texture[(x + y * 256) * 4 + 1] = g;
+	            this.texture[(x + y * 256) * 4 + 2] = b;
+	            this.texture[(x + y * 256) * 4 + 3] = a;
+	        }
+	    }, {
+	        key: 'fill',
+	        value: function fill(r, g, b, a) {
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    this.setPixel(x, y, r, g, b, a);
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'getImageData',
+	        value: function getImageData() {
+	            var imageData = new ImageData(256, 256);
+	            var data = imageData.data;
+	
+	            for (var i = 0; i < 256 * 256 * 4; i++) {
+	                data[i] = this.texture[i] * 255;
+	            }
+	
+	            return imageData;
+	        }
+	    }]);
+
+	    return Texture;
+	}();
 
 /***/ }
 /******/ ]);

@@ -23,9 +23,13 @@ class Application {
         canvas.width = 256;
         canvas.height = 256;
 
-        // Obtain a rendering context and fill the canvas with black color
+        // Obtain a rendering context
         let context = canvas.getContext('2d');
-        context.fillRect(0, 0, 256, 256);
+
+        //  Create a texture, fill it and copy it into the canvas
+        let texture = new tg.Texture();
+        texture.fill(1, 0.25, 1, 1);
+        context.putImageData(texture.getImageData(), 0, 0);
 
         // Add the canvas to the html DOM
         document.body.appendChild(canvas);
