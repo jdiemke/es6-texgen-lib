@@ -4,7 +4,8 @@
   "description": "A procedural texture generation library written in ECMAScript 6",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "http-server",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
