@@ -8,10 +8,13 @@
 
 'use strict';
 
+import * as tg from './lib/es6-texgen-lib.js';
+
 class Application {
 
     main() {
         this.createAndShowCanvas();
+        this.logLibraryNameAndVersion()
     }
 
     createAndShowCanvas() {
@@ -26,6 +29,12 @@ class Application {
 
         // Add the canvas to the html DOM
         document.body.appendChild(canvas);
+    }
+
+    logLibraryNameAndVersion() {
+        console.log('name      : ' + tg.distribution.baseName);
+        console.log('version   : ' + tg.distribution.version);
+        console.log('full name : ' + tg.distribution.fullName);
     }
 
 }
