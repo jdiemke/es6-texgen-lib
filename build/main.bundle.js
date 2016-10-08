@@ -78,21 +78,12 @@
 	    }, {
 	        key: 'createAndShowCanvas',
 	        value: function createAndShowCanvas() {
-	            // Create a canvas
-	            var canvas = document.createElement('canvas');
-	            canvas.width = 256;
-	            canvas.height = 256;
-	
-	            // Obtain a rendering context
-	            var context = canvas.getContext('2d');
-	
-	            //  Create a texture, fill it and copy it into the canvas
 	            var texture = new tg.Texture();
 	            texture.fill(1, 0.25, 1, 1);
-	            context.putImageData(texture.getImageData(), 0, 0);
 	
-	            // Add the canvas to the html DOM
-	            document.body.appendChild(canvas);
+	            var canvas = new tg.Canvas(256, 256);
+	            canvas.putImageData(texture.getImageData());
+	            canvas.appendToHtmlDom();
 	        }
 	    }, {
 	        key: 'logLibraryNameAndVersion',
@@ -127,6 +118,15 @@
 	    enumerable: true,
 	    get: function get() {
 	        return _Texture.Texture;
+	    }
+	});
+	
+	var _Canvas = __webpack_require__(3);
+	
+	Object.defineProperty(exports, 'Canvas', {
+	    enumerable: true,
+	    get: function get() {
+	        return _Canvas.Canvas;
 	    }
 	});
 	var distribution = exports.distribution = {
@@ -192,6 +192,53 @@
 	    }]);
 
 	    return Texture;
+	}();
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	/**
+	 *
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Canvas = exports.Canvas = function () {
+	    function Canvas(width, height) {
+	        _classCallCheck(this, Canvas);
+	
+	        // Create a canvas
+	        this.canvas = document.createElement('canvas');
+	        this.canvas.width = width;
+	        this.canvas.height = height;
+	
+	        // Obtain a rendering context
+	        this.context = this.canvas.getContext('2d');
+	    }
+	
+	    _createClass(Canvas, [{
+	        key: 'putImageData',
+	        value: function putImageData(imageData) {
+	            this.context.putImageData(imageData, 0, 0);
+	        }
+	    }, {
+	        key: 'appendToHtmlDom',
+	        value: function appendToHtmlDom() {
+	            // Add the canvas to the html DOM
+	            document.body.appendChild(this.canvas);
+	        }
+	    }]);
+
+	    return Canvas;
 	}();
 
 /***/ }

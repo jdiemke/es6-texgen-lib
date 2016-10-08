@@ -8,3 +8,8 @@ export {
     Texture
 }
 from './Texture.js';
+
+export {
+    Canvas
+}
+from './Canvas.js';
