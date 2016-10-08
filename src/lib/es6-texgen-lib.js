@@ -40,3 +40,8 @@ export {
     SinePlasmaOperator
 }
 from './SinePlasmaOperator.js';
+
+export {
+    OperatorRegistry
+}
+from './OperatorRegistry.js';

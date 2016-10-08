@@ -21,6 +21,10 @@ export class AbstractOperator {
         this.parents = new Array(0);
     }
 
+    static getType() {
+        return AbstractOperator.name;
+    }
+
     /**
      * This method should be overridden in all sub classes in order to specify
      * the operators behavior.

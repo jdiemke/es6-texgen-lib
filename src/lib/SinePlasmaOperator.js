@@ -1,6 +1,6 @@
 /**
- * The FillOperator class implements an operator that fills a texture with a
- * solid color.
+ * The SinePlasmaOperator class implements an operator that fills a texture with
+ * a sine pattern.
  *
  * @author jdiemke <johannes.diemke@eventim.de>
  * @since 2016-10-08
@@ -16,6 +16,10 @@ import {
     Color
 } from './Color.js';
 
+import {
+    OperatorRegistry
+} from './OperatorRegistry.js';
+
 export class SinePlasmaOperator extends AbstractOperator {
 
     constructor() {
@@ -23,6 +27,10 @@ export class SinePlasmaOperator extends AbstractOperator {
         this.color = new Color(1, 0, 0);
         this.sinePeriods = 5;
         this.cosinePeriods = 6;
+    }
+
+    static getType() {
+        return SinePlasmaOperator.name;
     }
 
     process() {
@@ -42,3 +50,6 @@ export class SinePlasmaOperator extends AbstractOperator {
     }
 
 }
+
+// Add to registry
+OperatorRegistry.getInstance().register(SinePlasmaOperator);

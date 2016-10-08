@@ -1,5 +1,5 @@
 /**
- * The Canvas class encapsulates a HTML5 canvas.
+ * The Color class represents a RGBA color.
  *
  * @author jdiemke <johannes.diemke@eventim.de>
  * @since 2016-10-08

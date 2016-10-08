@@ -16,11 +16,19 @@ import {
     Color
 } from './Color.js';
 
+import {
+    OperatorRegistry
+} from './OperatorRegistry.js';
+
 export class FillOperator extends AbstractOperator {
 
     constructor() {
         super();
         this.fillColor = new Color(1, 0, 0);
+    }
+
+    static getType() {
+        return FillOperator.name;
     }
 
     process() {
@@ -32,3 +40,6 @@ export class FillOperator extends AbstractOperator {
     }
 
 }
+
+// Add to registry
+OperatorRegistry.getInstance().register(FillOperator);

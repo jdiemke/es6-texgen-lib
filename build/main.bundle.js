@@ -74,6 +74,7 @@
 	        value: function main() {
 	            this.createAndShowCanvas();
 	            this.logLibraryNameAndVersion();
+	            this.logOperatorRegistry();
 	        }
 	    }, {
 	        key: 'createAndShowCanvas',
@@ -100,6 +101,13 @@
 	            console.log('name      : ' + tg.distribution.baseName);
 	            console.log('version   : ' + tg.distribution.version);
 	            console.log('full name : ' + tg.distribution.fullName);
+	        }
+	    }, {
+	        key: 'logOperatorRegistry',
+	        value: function logOperatorRegistry() {
+	            var operatorRegistry = tg.OperatorRegistry.getInstance();
+	            var types = operatorRegistry.getRegisteredTypes().toString();
+	            console.log('registered types: ' + types);
 	        }
 	    }]);
 	
@@ -167,12 +175,21 @@
 	    }
 	});
 	
-	var _SinePlasmaOperator = __webpack_require__(7);
+	var _SinePlasmaOperator = __webpack_require__(8);
 	
 	Object.defineProperty(exports, 'SinePlasmaOperator', {
 	    enumerable: true,
 	    get: function get() {
 	        return _SinePlasmaOperator.SinePlasmaOperator;
+	    }
+	});
+	
+	var _OperatorRegistry = __webpack_require__(7);
+	
+	Object.defineProperty(exports, 'OperatorRegistry', {
+	    enumerable: true,
+	    get: function get() {
+	        return _OperatorRegistry.OperatorRegistry;
 	    }
 	});
 	var distribution = exports.distribution = {
@@ -319,6 +336,8 @@
 	
 	var _Color = __webpack_require__(6);
 	
+	var _OperatorRegistry = __webpack_require__(7);
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -347,10 +366,20 @@
 	        value: function setFillColor(fillColor) {
 	            this.fillColor = fillColor;
 	        }
+	    }], [{
+	        key: 'getType',
+	        value: function getType() {
+	            return FillOperator.name;
+	        }
 	    }]);
-
+	
 	    return FillOperator;
 	}(_AbstractOperator2.AbstractOperator);
+	
+	// Add to registry
+	
+	
+	_OperatorRegistry.OperatorRegistry.getInstance().register(FillOperator);
 
 /***/ },
 /* 5 */
@@ -388,14 +417,14 @@
 	        this.parents = new Array(0);
 	    }
 	
-	    /**
-	     * This method should be overridden in all sub classes in order to specify
-	     * the operators behavior.
-	     */
-	
-	
 	    _createClass(AbstractOperator, [{
 	        key: 'process',
+	
+	
+	        /**
+	         * This method should be overridden in all sub classes in order to specify
+	         * the operators behavior.
+	         */
 	        value: function process() {}
 	        // Do nothing in this abstract method.
 	
@@ -437,6 +466,11 @@
 	        value: function getTexture() {
 	            return this.texture;
 	        }
+	    }], [{
+	        key: 'getType',
+	        value: function getType() {
+	            return AbstractOperator.name;
+	        }
 	    }]);
 
 	    return AbstractOperator;
@@ -447,7 +481,7 @@
 /***/ function(module, exports) {
 
 	/**
-	 * The Canvas class encapsulates a HTML5 canvas.
+	 * The Color class represents a RGBA color.
 	 *
 	 * @author jdiemke <johannes.diemke@eventim.de>
 	 * @since 2016-10-08
@@ -474,11 +508,71 @@
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+	/**
+	 * The OperatorRegistry class is a global registry for operators. It is used for
+	 * operator stack serialization and deserialization.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-08
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var OperatorRegistry = exports.OperatorRegistry = function () {
+	    function OperatorRegistry() {
+	        _classCallCheck(this, OperatorRegistry);
+	
+	        this.registry = {};
+	    }
+	
+	    _createClass(OperatorRegistry, [{
+	        key: 'register',
+	        value: function register(operatorClass) {
+	            this.registry[operatorClass.getType()] = operatorClass;
+	        }
+	    }, {
+	        key: 'getRegisteredTypes',
+	        value: function getRegisteredTypes() {
+	            var typeList = new Array(0);
+	
+	            for (var i in this.registry) {
+	                typeList.push(i);
+	            }
+	
+	            return typeList;
+	        }
+	    }], [{
+	        key: 'getInstance',
+	        value: function getInstance() {
+	            if (OperatorRegistry.instance == null) {
+	                OperatorRegistry.instance = new OperatorRegistry();
+	            }
+	            return OperatorRegistry.instance;
+	        }
+	    }]);
+	
+	    return OperatorRegistry;
+	}();
+	
+	OperatorRegistry.instance = null;
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	 * The FillOperator class implements an operator that fills a texture with a
-	 * solid color.
+	 * The SinePlasmaOperator class implements an operator that fills a texture with
+	 * a sine pattern.
 	 *
 	 * @author jdiemke <johannes.diemke@eventim.de>
 	 * @since 2016-10-08
@@ -496,6 +590,8 @@
 	var _AbstractOperator2 = __webpack_require__(5);
 	
 	var _Color = __webpack_require__(6);
+	
+	var _OperatorRegistry = __webpack_require__(7);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -533,10 +629,20 @@
 	        value: function setColor(color) {
 	            this.color = color;
 	        }
+	    }], [{
+	        key: 'getType',
+	        value: function getType() {
+	            return SinePlasmaOperator.name;
+	        }
 	    }]);
-
+	
 	    return SinePlasmaOperator;
 	}(_AbstractOperator2.AbstractOperator);
+	
+	// Add to registry
+	
+	
+	_OperatorRegistry.OperatorRegistry.getInstance().register(SinePlasmaOperator);
 
 /***/ }
 /******/ ]);

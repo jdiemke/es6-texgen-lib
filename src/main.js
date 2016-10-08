@@ -15,6 +15,7 @@ class Application {
     main() {
         this.createAndShowCanvas();
         this.logLibraryNameAndVersion()
+        this.logOperatorRegistry();
     }
 
     createAndShowCanvas() {
@@ -39,6 +40,12 @@ class Application {
         console.log('name      : ' + tg.distribution.baseName);
         console.log('version   : ' + tg.distribution.version);
         console.log('full name : ' + tg.distribution.fullName);
+    }
+
+    logOperatorRegistry() {
+        let operatorRegistry = tg.OperatorRegistry.getInstance();
+        let types = operatorRegistry.getRegisteredTypes().toString()
+        console.log('registered types: ' + types);
     }
 
 }
