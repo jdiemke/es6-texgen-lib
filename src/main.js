@@ -18,11 +18,11 @@ class Application {
     }
 
     createAndShowCanvas() {
-        let texture = new tg.Texture();
-        texture.fill(1, 0.25, 1, 1);
+        let operator = new tg.FillOperator();
+        operator.evaluate();
 
         let canvas = new tg.Canvas(256, 256);
-        canvas.putImageData(texture.getImageData());
+        canvas.putImageData(operator.getTexture().getImageData());
         canvas.appendToHtmlDom();
     }
 

@@ -1,5 +1,9 @@
 /**
+ * The Texture class represents a texture and basic operations on textures like
+ * clearing the texture with a solid color or setting single pixels.
  *
+ * @author jdiemke <johannes.diemke@eventim.de>
+ * @since 2016-10-08
  */
 
 'use strict';

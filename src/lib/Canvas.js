@@ -1,5 +1,8 @@
 /**
+ * The Canvas class encapsulates a HTML5 canvas.
  *
+ * @author jdiemke <johannes.diemke@eventim.de>
+ * @since 2016-10-08
  */
 
 'use strict';

@@ -78,11 +78,11 @@
 	    }, {
 	        key: 'createAndShowCanvas',
 	        value: function createAndShowCanvas() {
-	            var texture = new tg.Texture();
-	            texture.fill(1, 0.25, 1, 1);
+	            var operator = new tg.FillOperator();
+	            operator.evaluate();
 	
 	            var canvas = new tg.Canvas(256, 256);
-	            canvas.putImageData(texture.getImageData());
+	            canvas.putImageData(operator.getTexture().getImageData());
 	            canvas.appendToHtmlDom();
 	        }
 	    }, {
@@ -106,6 +106,16 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * This module exports all classes, methods and objects that are necessary in
+	 * order to work with the texture generator library. Hence it should be
+	 * sufficient to import only this single module in order to work with the
+	 * library.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-07
+	 */
+	
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -129,6 +139,15 @@
 	        return _Canvas.Canvas;
 	    }
 	});
+	
+	var _FillOperator = __webpack_require__(4);
+	
+	Object.defineProperty(exports, 'FillOperator', {
+	    enumerable: true,
+	    get: function get() {
+	        return _FillOperator.FillOperator;
+	    }
+	});
 	var distribution = exports.distribution = {
 	    baseName: 'es6-texgen-lib',
 	    version: '0.1.0',
@@ -140,7 +159,11 @@
 /***/ function(module, exports) {
 
 	/**
+	 * The Texture class represents a texture and basic operations on textures like
+	 * clearing the texture with a solid color or setting single pixels.
 	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-08
 	 */
 	
 	'use strict';
@@ -199,7 +222,10 @@
 /***/ function(module, exports) {
 
 	/**
+	 * The Canvas class encapsulates a HTML5 canvas.
 	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-08
 	 */
 	
 	'use strict';
@@ -239,6 +265,144 @@
 	    }]);
 
 	    return Canvas;
+	}();
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * The FillOperator class implements an operator that fills a texture with a
+	 * solid color.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-08
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.FillOperator = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(5);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var FillOperator = exports.FillOperator = function (_AbstractOperator) {
+	    _inherits(FillOperator, _AbstractOperator);
+	
+	    function FillOperator() {
+	        _classCallCheck(this, FillOperator);
+	
+	        return _possibleConstructorReturn(this, (FillOperator.__proto__ || Object.getPrototypeOf(FillOperator)).apply(this, arguments));
+	    }
+	
+	    _createClass(FillOperator, [{
+	        key: 'process',
+	        value: function process() {
+	            this.texture.fill(0, 1, 0, 1);
+	        }
+	    }]);
+
+	    return FillOperator;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * The AbstractOperator class is the base class for all operators.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-08
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.AbstractOperator = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _Texture = __webpack_require__(2);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var AbstractOperator = exports.AbstractOperator = function () {
+	
+	    /**
+	     * Constructs a new Operator.
+	     */
+	    function AbstractOperator() {
+	        _classCallCheck(this, AbstractOperator);
+	
+	        this.texture = new _Texture.Texture(256, 256);
+	        this.parents = new Array(0);
+	    }
+	
+	    /**
+	     * This method should be overridden in all sub classes in order to specify
+	     * the operators behavior.
+	     */
+	
+	
+	    _createClass(AbstractOperator, [{
+	        key: 'process',
+	        value: function process() {}
+	        // Do nothing in this abstract method.
+	
+	
+	        /**
+	         * This method is used to recursivly process all parents before this
+	         * operator is processed.
+	         */
+	
+	    }, {
+	        key: 'evaluate',
+	        value: function evaluate() {
+	            for (var i in this.parents) {
+	                this.parents[i].evaluate();
+	            }
+	            this.process();
+	        }
+	
+	        /**
+	         * Adds a parent operator to this operator. Prior to processing this
+	         * operator all its parents need to be processed.
+	         *
+	         * @param parent The operator to be added to the list of parent operators
+	         */
+	
+	    }, {
+	        key: 'addParent',
+	        value: function addParent(parent) {
+	            this.parents.push(parent);
+	        }
+	
+	        /**
+	         * Returns the texture object that holds the final result of the evaluation
+	         * of this operator after calling the evaluate() method.
+	         */
+	
+	    }, {
+	        key: 'getTexture',
+	        value: function getTexture() {
+	            return this.texture;
+	        }
+	    }]);
+
+	    return AbstractOperator;
 	}();
 
 /***/ }
