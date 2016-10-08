@@ -79,11 +79,20 @@
 	        key: 'createAndShowCanvas',
 	        value: function createAndShowCanvas() {
 	            var operator = new tg.FillOperator();
+	            operator.setFillColor(new tg.Color(0.8, 1.0, 0.8));
 	            operator.evaluate();
 	
 	            var canvas = new tg.Canvas(256, 256);
 	            canvas.putImageData(operator.getTexture().getImageData());
 	            canvas.appendToHtmlDom();
+	
+	            var operator2 = new tg.SinePlasmaOperator();
+	            operator2.setColor(new tg.Color(1.0, 0.4, 0.8));
+	            operator2.evaluate();
+	
+	            var canvas2 = new tg.Canvas(256, 256);
+	            canvas2.putImageData(operator2.getTexture().getImageData());
+	            canvas2.appendToHtmlDom();
 	        }
 	    }, {
 	        key: 'logLibraryNameAndVersion',
@@ -148,6 +157,24 @@
 	        return _FillOperator.FillOperator;
 	    }
 	});
+	
+	var _Color = __webpack_require__(6);
+	
+	Object.defineProperty(exports, 'Color', {
+	    enumerable: true,
+	    get: function get() {
+	        return _Color.Color;
+	    }
+	});
+	
+	var _SinePlasmaOperator = __webpack_require__(7);
+	
+	Object.defineProperty(exports, 'SinePlasmaOperator', {
+	    enumerable: true,
+	    get: function get() {
+	        return _SinePlasmaOperator.SinePlasmaOperator;
+	    }
+	});
 	var distribution = exports.distribution = {
 	    baseName: 'es6-texgen-lib',
 	    version: '0.1.0',
@@ -185,18 +212,18 @@
 	
 	    _createClass(Texture, [{
 	        key: 'setPixel',
-	        value: function setPixel(x, y, r, g, b, a) {
-	            this.texture[(x + y * 256) * 4] = r;
-	            this.texture[(x + y * 256) * 4 + 1] = g;
-	            this.texture[(x + y * 256) * 4 + 2] = b;
-	            this.texture[(x + y * 256) * 4 + 3] = a;
+	        value: function setPixel(x, y, color) {
+	            this.texture[(x + y * 256) * 4] = color.r;
+	            this.texture[(x + y * 256) * 4 + 1] = color.g;
+	            this.texture[(x + y * 256) * 4 + 2] = color.b;
+	            this.texture[(x + y * 256) * 4 + 3] = color.a;
 	        }
 	    }, {
 	        key: 'fill',
-	        value: function fill(r, g, b, a) {
+	        value: function fill(color) {
 	            for (var y = 0; y < 256; y++) {
 	                for (var x = 0; x < 256; x++) {
-	                    this.setPixel(x, y, r, g, b, a);
+	                    this.setPixel(x, y, color);
 	                }
 	            }
 	        }
@@ -290,6 +317,8 @@
 	
 	var _AbstractOperator2 = __webpack_require__(5);
 	
+	var _Color = __webpack_require__(6);
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -302,13 +331,21 @@
 	    function FillOperator() {
 	        _classCallCheck(this, FillOperator);
 	
-	        return _possibleConstructorReturn(this, (FillOperator.__proto__ || Object.getPrototypeOf(FillOperator)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (FillOperator.__proto__ || Object.getPrototypeOf(FillOperator)).call(this));
+	
+	        _this.fillColor = new _Color.Color(1, 0, 0);
+	        return _this;
 	    }
 	
 	    _createClass(FillOperator, [{
 	        key: 'process',
 	        value: function process() {
-	            this.texture.fill(0, 1, 0, 1);
+	            this.texture.fill(this.fillColor);
+	        }
+	    }, {
+	        key: 'setFillColor',
+	        value: function setFillColor(fillColor) {
+	            this.fillColor = fillColor;
 	        }
 	    }]);
 
@@ -404,6 +441,102 @@
 
 	    return AbstractOperator;
 	}();
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	/**
+	 * The Canvas class encapsulates a HTML5 canvas.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-08
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Color = exports.Color = function Color(r, g, b) {
+	    var a = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+	
+	    _classCallCheck(this, Color);
+	
+	    this.r = r;
+	    this.g = g;
+	    this.b = b;
+	    this.a = a;
+	};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * The FillOperator class implements an operator that fills a texture with a
+	 * solid color.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-08
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.SinePlasmaOperator = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(5);
+	
+	var _Color = __webpack_require__(6);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SinePlasmaOperator = exports.SinePlasmaOperator = function (_AbstractOperator) {
+	    _inherits(SinePlasmaOperator, _AbstractOperator);
+	
+	    function SinePlasmaOperator() {
+	        _classCallCheck(this, SinePlasmaOperator);
+	
+	        var _this = _possibleConstructorReturn(this, (SinePlasmaOperator.__proto__ || Object.getPrototypeOf(SinePlasmaOperator)).call(this));
+	
+	        _this.color = new _Color.Color(1, 0, 0);
+	        _this.sinePeriods = 5;
+	        _this.cosinePeriods = 6;
+	        return _this;
+	    }
+	
+	    _createClass(SinePlasmaOperator, [{
+	        key: 'process',
+	        value: function process() {
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var f = (Math.sin(2.0 * Math.PI / 256 * x * this.sinePeriods) + Math.cos(2.0 * Math.PI / 256 * y * this.cosinePeriods) + 2) / 4.0;
+	
+	                    this.texture.setPixel(x, y, new _Color.Color(f * this.color.r, f * this.color.g, f * this.color.b));
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'setColor',
+	        value: function setColor(color) {
+	            this.color = color;
+	        }
+	    }]);
+
+	    return SinePlasmaOperator;
+	}(_AbstractOperator2.AbstractOperator);
 
 /***/ }
 /******/ ]);

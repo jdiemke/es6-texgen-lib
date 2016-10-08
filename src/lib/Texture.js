@@ -14,17 +14,17 @@ export class Texture {
         this.texture = new Float32Array(256 * 256 * 4);
     }
 
-    setPixel(x, y, r, g, b, a) {
-        this.texture[(x + (y * 256)) * 4] = r;
-        this.texture[(x + (y * 256)) * 4 + 1] = g;
-        this.texture[(x + (y * 256)) * 4 + 2] = b;
-        this.texture[(x + (y * 256)) * 4 + 3] = a;
+    setPixel(x, y, color) {
+        this.texture[(x + (y * 256)) * 4] = color.r;
+        this.texture[(x + (y * 256)) * 4 + 1] = color.g;
+        this.texture[(x + (y * 256)) * 4 + 2] = color.b;
+        this.texture[(x + (y * 256)) * 4 + 3] = color.a;
     }
 
-    fill(r, g, b, a) {
+    fill(color) {
         for (let y = 0; y < 256; y++) {
             for (let x = 0; x < 256; x++) {
-                this.setPixel(x, y, r, g, b, a);
+                this.setPixel(x, y, color);
             }
         }
     }

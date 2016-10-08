@@ -30,3 +30,13 @@ export {
     FillOperator
 }
 from './FillOperator.js';
+
+export {
+    Color
+}
+from './Color.js';
+
+export {
+    SinePlasmaOperator
+}
+from './SinePlasmaOperator.js';

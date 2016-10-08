@@ -12,10 +12,23 @@ import {
     AbstractOperator
 } from './AbstractOperator.js';
 
+import {
+    Color
+} from './Color.js';
+
 export class FillOperator extends AbstractOperator {
 
+    constructor() {
+        super();
+        this.fillColor = new Color(1, 0, 0);
+    }
+
     process() {
-        this.texture.fill(0, 1, 0, 1);
+        this.texture.fill(this.fillColor);
+    }
+
+    setFillColor(fillColor) {
+        this.fillColor = fillColor;
     }
 
 }
