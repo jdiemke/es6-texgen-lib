@@ -12,6 +12,5 @@ Type the following command into your shell, open a browser and access [http://lo
 ```bash
 npm start
 ```
-
-
-
+### Demo
+[http://jdiemke.github.io/es6-texgen-lib/](http://jdiemke.github.io/es6-texgen-lib/)
