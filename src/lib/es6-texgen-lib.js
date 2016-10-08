@@ -45,3 +45,8 @@ export {
     OperatorRegistry
 }
 from './OperatorRegistry.js';
+
+export {
+    AddOperator
+}
+from './AddOperator.js';

@@ -16,4 +16,12 @@ export class Color {
         this.a = a;
     }
 
+    add(color) {
+        return new Color(this.r + color.r, this.g + color.g, this.b + color.b);
+    }
+
+    multiply(scalar) {
+        return new Color(this.r * scalar, this.g * scalar, this.b * scalar);
+    }
+
 }
