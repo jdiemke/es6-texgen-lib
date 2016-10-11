@@ -8,9 +8,7 @@
 
 'use strict';
 
-import {
-    Color
-} from './Color.js';
+import {Color} from './Color.js';
 
 export class Texture {
 

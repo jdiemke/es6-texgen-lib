@@ -12,41 +12,16 @@
 
 export let distribution = {
     baseName: 'es6-texgen-lib',
-    version: '0.1.0',
-    fullName: 'es6-texgen-lib-v0.1.0'
+    version: '0.1.1',
+    fullName: 'es6-texgen-lib-v0.1.1'
 };
 
-export {
-    Texture
-}
-from './Texture.js';
-
-export {
-    Canvas
-}
-from './Canvas.js';
-
-export {
-    FillOperator
-}
-from './FillOperator.js';
-
-export {
-    Color
-}
-from './Color.js';
-
-export {
-    SinePlasmaOperator
-}
-from './SinePlasmaOperator.js';
-
-export {
-    OperatorRegistry
-}
-from './OperatorRegistry.js';
-
-export {
-    AddOperator
-}
-from './AddOperator.js';
+export {Texture} from './Texture.js';
+export {Canvas} from './Canvas.js';
+export {FillOperator} from './FillOperator.js';
+export {Color} from './Color.js';
+export {SinePlasmaOperator} from './SinePlasmaOperator.js';
+export {OperatorRegistry} from './OperatorRegistry.js';
+export {AddOperator} from './AddOperator.js';
+export {LogicalOperator} from './LogicalOperator.js';
+export {RandomOperator} from './RandomOperator.js';

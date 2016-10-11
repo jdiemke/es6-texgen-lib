@@ -8,17 +8,8 @@
 
 'use strict';
 
-import {
-    AbstractOperator
-} from './AbstractOperator.js';
-
-import {
-    Color
-} from './Color.js';
-
-import {
-    OperatorRegistry
-} from './OperatorRegistry.js';
+import {AbstractOperator} from './AbstractOperator.js';
+import {Color} from './Color.js';
 
 export class SinePlasmaOperator extends AbstractOperator {
 
@@ -27,10 +18,6 @@ export class SinePlasmaOperator extends AbstractOperator {
         this.color = new Color(1, 0, 0);
         this.sinePeriods = 5;
         this.cosinePeriods = 6;
-    }
-
-    static getType() {
-        return SinePlasmaOperator.name;
     }
 
     process() {
@@ -50,6 +37,3 @@ export class SinePlasmaOperator extends AbstractOperator {
     }
 
 }
-
-// Add to registry
-OperatorRegistry.getInstance().register(SinePlasmaOperator);

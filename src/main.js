@@ -43,6 +43,20 @@ class Application {
         let canvas3 = new tg.Canvas(256, 256);
         canvas3.putImageData(operator3.getTexture().getImageData());
         canvas3.appendToHtmlDom();
+
+        let operator4 = new tg.RandomOperator();
+        operator4.evaluate();
+
+        let canvas4 = new tg.Canvas(256, 256);
+        canvas4.putImageData(operator4.getTexture().getImageData());
+        canvas4.appendToHtmlDom();
+
+        let operator5 = new tg.LogicalOperator();
+        operator5.evaluate();
+
+        let canvas5 = new tg.Canvas(256, 256);
+        canvas5.putImageData(operator5.getTexture().getImageData());
+        canvas5.appendToHtmlDom();
     }
 
     logLibraryNameAndVersion() {

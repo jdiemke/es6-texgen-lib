@@ -7,9 +7,8 @@
 
 'use strict';
 
-import {
-    Texture
-} from './Texture.js';
+import {Texture} from './Texture.js';
+import {OperatorRegistry} from './OperatorRegistry.js';
 
 export class AbstractOperator {
 
@@ -19,10 +18,8 @@ export class AbstractOperator {
     constructor() {
         this.texture = new Texture(256, 256);
         this.parents = new Array(0);
-    }
 
-    static getType() {
-        return AbstractOperator.name;
+        OperatorRegistry.getInstance().register(this.constructor);
     }
 
     /**

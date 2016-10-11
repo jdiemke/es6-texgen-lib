@@ -22,7 +22,7 @@ export class OperatorRegistry {
     }
 
     register(operatorClass) {
-        this.registry[operatorClass.getType()] = operatorClass;
+        this.registry[operatorClass.name] = operatorClass;
     }
 
     getRegisteredTypes() {
