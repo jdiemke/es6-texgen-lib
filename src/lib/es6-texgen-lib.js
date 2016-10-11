@@ -25,3 +25,4 @@ export {OperatorRegistry} from './OperatorRegistry.js';
 export {AddOperator} from './AddOperator.js';
 export {LogicalOperator} from './LogicalOperator.js';
 export {RandomOperator} from './RandomOperator.js';
+export {AbstractOperator} from './AbstractOperator.js';
