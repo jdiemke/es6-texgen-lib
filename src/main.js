@@ -9,6 +9,7 @@
 'use strict';
 
 import * as tg from './lib/es6-texgen-lib.js';
+import * as APEX from './MyOperator.js';
 
 class Application {
 
@@ -57,6 +58,20 @@ class Application {
         let canvas5 = new tg.Canvas(256, 256);
         canvas5.putImageData(operator5.getTexture().getImageData());
         canvas5.appendToHtmlDom();
+
+        let operator6 = new APEX.MyOperator();
+        operator6.evaluate();
+
+        let canvas6 = new tg.Canvas(256, 256);
+        canvas6.putImageData(operator6.getTexture().getImageData());
+        canvas6.appendToHtmlDom();
+
+        let operator7 = new tg.CellOperator();
+        operator7.evaluate();
+
+        let canvas7 = new tg.Canvas(256, 256);
+        canvas7.putImageData(operator7.getTexture().getImageData());
+        canvas7.appendToHtmlDom();
     }
 
     logLibraryNameAndVersion() {
