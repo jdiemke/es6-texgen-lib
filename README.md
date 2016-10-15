@@ -18,7 +18,7 @@ You can extend the texture generation library by writing your own plugins. All y
 ```javascript
 import * as APEX from './lib/es6-texgen-lib.js';
 
-class MyOperator extends APEX.AbstractOperator {
+export class MyOperator extends APEX.AbstractOperator {
 
     process() {
         this.texture.fill(new APEX.Color(0.0, 1.0, 0.0));
