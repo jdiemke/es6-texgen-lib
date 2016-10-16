@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(13);
+	var _MyOperator = __webpack_require__(16);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -135,6 +135,20 @@
 	            var canvas7 = new tg.Canvas(256, 256);
 	            canvas7.putImageData(operator7.getTexture().getImageData());
 	            canvas7.appendToHtmlDom();
+	
+	            var operator8 = new tg.DistortOperator();
+	            operator8.addParent(operator7);
+	            operator8.addParent(operator2);
+	
+	            operator7.setLinearCombinationType(1);
+	
+	            var op9 = new tg.ColorizeOperator();
+	            op9.addParent(operator8);
+	            op9.evaluate();
+	
+	            var canvas8 = new tg.Canvas(256, 256);
+	            canvas8.putImageData(op9.getTexture().getImageData());
+	            canvas8.appendToHtmlDom();
 	        }
 	    }, {
 	        key: 'logLibraryNameAndVersion',
@@ -234,7 +248,25 @@
 	    }
 	});
 	
-	var _AddOperator = __webpack_require__(9);
+	var _ColorizeOperator = __webpack_require__(9);
+	
+	Object.defineProperty(exports, 'ColorizeOperator', {
+	    enumerable: true,
+	    get: function get() {
+	        return _ColorizeOperator.ColorizeOperator;
+	    }
+	});
+	
+	var _DistortOperator = __webpack_require__(10);
+	
+	Object.defineProperty(exports, 'DistortOperator', {
+	    enumerable: true,
+	    get: function get() {
+	        return _DistortOperator.DistortOperator;
+	    }
+	});
+	
+	var _AddOperator = __webpack_require__(11);
 	
 	Object.defineProperty(exports, 'AddOperator', {
 	    enumerable: true,
@@ -243,7 +275,7 @@
 	    }
 	});
 	
-	var _LogicalOperator = __webpack_require__(10);
+	var _LogicalOperator = __webpack_require__(12);
 	
 	Object.defineProperty(exports, 'LogicalOperator', {
 	    enumerable: true,
@@ -252,7 +284,7 @@
 	    }
 	});
 	
-	var _RandomOperator = __webpack_require__(11);
+	var _RandomOperator = __webpack_require__(13);
 	
 	Object.defineProperty(exports, 'RandomOperator', {
 	    enumerable: true,
@@ -270,7 +302,7 @@
 	    }
 	});
 	
-	var _CellOperator = __webpack_require__(12);
+	var _CellOperator = __webpack_require__(15);
 	
 	Object.defineProperty(exports, 'CellOperator', {
 	    enumerable: true,
@@ -319,6 +351,8 @@
 	    _createClass(Texture, [{
 	        key: 'setPixel',
 	        value: function setPixel(x, y, color) {
+	            x = (x | 0) % 256;
+	            y = (y | 0) % 256;
 	            this.texture[(x + y * 256) * 4] = color.r;
 	            this.texture[(x + y * 256) * 4 + 1] = color.g;
 	            this.texture[(x + y * 256) * 4 + 2] = color.b;
@@ -327,6 +361,8 @@
 	    }, {
 	        key: 'getPixel',
 	        value: function getPixel(x, y) {
+	            x = (x | 0) % 256;
+	            y = (y | 0) % 256;
 	            return new _Color.Color(this.texture[(x + y * 256) * 4], this.texture[(x + y * 256) * 4 + 1], this.texture[(x + y * 256) * 4 + 2], this.texture[(x + y * 256) * 4 + 3]);
 	        }
 	    }, {
@@ -399,6 +435,16 @@
 	        key: 'multiply',
 	        value: function multiply(scalar) {
 	            return new Color(this.r * scalar, this.g * scalar, this.b * scalar);
+	        }
+	    }, {
+	        key: 'multiplyColor',
+	        value: function multiplyColor(color) {
+	            return new Color(this.r * color.r, this.g * color.g, this.b * color.b);
+	        }
+	    }, {
+	        key: 'substract',
+	        value: function substract(color) {
+	            return new Color(this.r - color.r, this.g - color.g, this.b - color.b);
 	        }
 	    }]);
 
@@ -707,8 +753,8 @@
 	        var _this = _possibleConstructorReturn(this, (SinePlasmaOperator.__proto__ || Object.getPrototypeOf(SinePlasmaOperator)).call(this));
 	
 	        _this.color = new _Color.Color(1, 0, 0);
-	        _this.sinePeriods = 5;
-	        _this.cosinePeriods = 6;
+	        _this.sinePeriods = 3;
+	        _this.cosinePeriods = 3;
 	        return _this;
 	    }
 	
@@ -735,6 +781,109 @@
 
 /***/ },
 /* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.ColorizeOperator = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ColorizeOperator = exports.ColorizeOperator = function (_AbstractOperator) {
+	    _inherits(ColorizeOperator, _AbstractOperator);
+	
+	    function ColorizeOperator() {
+	        _classCallCheck(this, ColorizeOperator);
+	
+	        var _this = _possibleConstructorReturn(this, (ColorizeOperator.__proto__ || Object.getPrototypeOf(ColorizeOperator)).call(this));
+	
+	        _this.color1 = new _Color.Color(0.3, 0.32, 0.04);
+	        _this.color2 = new _Color.Color(0.5, 1.0, 0.8);
+	        return _this;
+	    }
+	
+	    _createClass(ColorizeOperator, [{
+	        key: 'process',
+	        value: function process() {
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var scaleColor = this.parents[0].texture.getPixel(x, y);
+	                    var finalColor = this.color2.substract(this.color1).multiplyColor(scaleColor).add(this.color1);
+	                    this.texture.setPixel(x, y, finalColor);
+	                }
+	            }
+	        }
+	    }]);
+
+	    return ColorizeOperator;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.DistortOperator = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DistortOperator = exports.DistortOperator = function (_AbstractOperator) {
+	    _inherits(DistortOperator, _AbstractOperator);
+	
+	    function DistortOperator() {
+	        _classCallCheck(this, DistortOperator);
+	
+	        return _possibleConstructorReturn(this, (DistortOperator.__proto__ || Object.getPrototypeOf(DistortOperator)).apply(this, arguments));
+	    }
+	
+	    _createClass(DistortOperator, [{
+	        key: 'process',
+	        value: function process() {
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var color2 = this.parents[1].texture.getPixel(x, y);
+	                    var i = color2.r * 20;
+	                    var color1 = this.parents[0].texture.getPixel(x + i, y + i);
+	
+	                    var color = color1;
+	                    this.texture.setPixel(x, y, color);
+	                }
+	            }
+	        }
+	    }]);
+
+	    return DistortOperator;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -783,7 +932,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -830,7 +979,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -845,6 +994,8 @@
 	var _AbstractOperator2 = __webpack_require__(6);
 	
 	var _Color = __webpack_require__(3);
+	
+	var _RandomNumberGenerator = __webpack_require__(14);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -864,9 +1015,10 @@
 	    _createClass(RandomOperator, [{
 	        key: 'process',
 	        value: function process() {
+	            var rng = new _RandomNumberGenerator.RandomNumberGenerator();
 	            for (var y = 0; y < 256; y++) {
 	                for (var x = 0; x < 256; x++) {
-	                    var color = new _Color.Color(Math.random() * 256 / 255);
+	                    var color = new _Color.Color(rng.getInteger() * 256 / 255);
 	                    this.texture.setPixel(x, y, color);
 	                }
 	            }
@@ -877,7 +1029,46 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 12 */
+/* 14 */
+/***/ function(module, exports) {
+
+	/**
+	 * The RandomNumberGenerator generates random numbers.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-16
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var RandomNumberGenerator = exports.RandomNumberGenerator = function () {
+	    function RandomNumberGenerator() {
+	        _classCallCheck(this, RandomNumberGenerator);
+	
+	        this.seed = 6;
+	    }
+	
+	    _createClass(RandomNumberGenerator, [{
+	        key: 'getInteger',
+	        value: function getInteger() {
+	            this.seed = (this.seed * 9301 + 49297) % 233280;
+	            return this.seed / 233280;
+	        }
+	    }]);
+
+	    return RandomNumberGenerator;
+	}();
+
+/***/ },
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -885,7 +1076,7 @@
 	 * texture.
 	 *
 	 * @author jdiemke <johannes.diemke@eventim.de>
-	 * @since 2016-10-08
+	 * @since 2016-10-13
 	 */
 	
 	'use strict';
@@ -900,6 +1091,8 @@
 	var _AbstractOperator2 = __webpack_require__(6);
 	
 	var _Color = __webpack_require__(3);
+	
+	var _RandomNumberGenerator = __webpack_require__(14);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -971,7 +1164,11 @@
 	            }
 	
 	            // TODO: different linear combinations
-	            return F[1];
+	            if (version == 2) {
+	                return F[1];
+	            } else {
+	                return F[0];
+	            }
 	        }
 	    }, {
 	        key: 'wrapDist',
@@ -987,14 +1184,23 @@
 	    }, {
 	        key: 'uniformRandom',
 	        value: function uniformRandom() {
+	            var rng = new _RandomNumberGenerator.RandomNumberGenerator();
 	            this.points = [];
 	            for (var i = 0; i < this.quantity; i++) {
+	                var i1 = rng.getInteger() * 256;
+	                var i2 = rng.getInteger() * 256;
+	
 	                var point = {
-	                    x: Math.random() * 256,
-	                    y: Math.random() * 256
+	                    x: i1,
+	                    y: i2
 	                };
 	                this.points.push(point);
 	            }
+	        }
+	    }, {
+	        key: 'setLinearCombinationType',
+	        value: function setLinearCombinationType(type) {
+	            this.linearcombination = type;
 	        }
 	    }]);
 
@@ -1002,7 +1208,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 13 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
