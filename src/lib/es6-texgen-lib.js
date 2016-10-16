@@ -40,6 +40,21 @@ export {
     OperatorRegistry
 }
 from './OperatorRegistry.js';
+
+export {
+    ColorizeOperator
+}
+from './ColorizeOperator.js';
+
+
+
+export {
+    DistortOperator
+}
+from './DistortOperator.js';
+
+
+
 export {
     AddOperator
 }

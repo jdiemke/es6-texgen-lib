@@ -72,6 +72,20 @@ class Application {
         let canvas7 = new tg.Canvas(256, 256);
         canvas7.putImageData(operator7.getTexture().getImageData());
         canvas7.appendToHtmlDom();
+
+        let operator8 = new tg.DistortOperator();
+        operator8.addParent(operator7);
+        operator8.addParent(operator2);
+
+        operator7.setLinearCombinationType(1);
+
+        let op9 = new tg.ColorizeOperator();
+        op9.addParent(operator8);
+        op9.evaluate();
+
+        let canvas8 = new tg.Canvas(256, 256);
+        canvas8.putImageData(op9.getTexture().getImageData());
+        canvas8.appendToHtmlDom();
     }
 
     logLibraryNameAndVersion() {

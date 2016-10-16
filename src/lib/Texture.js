@@ -8,7 +8,9 @@
 
 'use strict';
 
-import {Color} from './Color.js';
+import {
+    Color
+} from './Color.js';
 
 export class Texture {
 
@@ -17,6 +19,8 @@ export class Texture {
     }
 
     setPixel(x, y, color) {
+        x = (x | 0) % 256;
+        y = (y | 0) % 256;
         this.texture[(x + (y * 256)) * 4] = color.r;
         this.texture[(x + (y * 256)) * 4 + 1] = color.g;
         this.texture[(x + (y * 256)) * 4 + 2] = color.b;
@@ -24,6 +28,8 @@ export class Texture {
     }
 
     getPixel(x, y) {
+        x = (x | 0) % 256;
+        y = (y | 0) % 256;
         return new Color(this.texture[(x + (y * 256)) * 4],
             this.texture[(x + (y * 256)) * 4 + 1],
             this.texture[(x + (y * 256)) * 4 + 2],

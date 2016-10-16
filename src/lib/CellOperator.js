@@ -16,6 +16,10 @@ import {
     Color
 } from './Color.js';
 
+import {
+    RandomNumberGenerator
+} from './RandomNumberGenerator.js';
+
 export class CellOperator extends AbstractOperator {
 
     constructor() {
@@ -73,7 +77,11 @@ export class CellOperator extends AbstractOperator {
         }
 
         // TODO: different linear combinations
-        return F[1];
+        if (version == 2) {
+            return F[1];
+        } else {
+            return F[0];
+        }
     }
 
     wrapDist(x, y, px, py, metric) {
@@ -87,14 +95,22 @@ export class CellOperator extends AbstractOperator {
     }
 
     uniformRandom() {
+        let rng = new RandomNumberGenerator();
         this.points = [];
         for (var i = 0; i < this.quantity; i++) {
+            let i1 = rng.getInteger() * 256;
+            let i2 = rng.getInteger() * 256;
+
             var point = {
-                x: Math.random() * 256,
-                y: Math.random() * 256
+                x: i1,
+                y: i2
             };
             this.points.push(point);
         }
+    }
+
+    setLinearCombinationType(type) {
+        this.linearcombination = type;
     }
 
 }

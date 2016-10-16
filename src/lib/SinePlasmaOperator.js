@@ -8,16 +8,20 @@
 
 'use strict';
 
-import {AbstractOperator} from './AbstractOperator.js';
-import {Color} from './Color.js';
+import {
+    AbstractOperator
+} from './AbstractOperator.js';
+import {
+    Color
+} from './Color.js';
 
 export class SinePlasmaOperator extends AbstractOperator {
 
     constructor() {
         super();
         this.color = new Color(1, 0, 0);
-        this.sinePeriods = 5;
-        this.cosinePeriods = 6;
+        this.sinePeriods = 3;
+        this.cosinePeriods = 3;
     }
 
     process() {

@@ -24,4 +24,12 @@ export class Color {
         return new Color(this.r * scalar, this.g * scalar, this.b * scalar);
     }
 
+    multiplyColor(color) {
+        return new Color(this.r * color.r, this.g * color.g, this.b * color.b);
+    }
+
+    substract(color) {
+        return new Color(this.r - color.r, this.g - color.g, this.b - color.b);
+    }
+
 }
