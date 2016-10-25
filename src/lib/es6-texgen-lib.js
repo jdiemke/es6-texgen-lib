@@ -54,6 +54,11 @@ export {
 from './DistortOperator.js';
 
 
+export {
+    Tile
+}
+from './Tile.js';
+
 
 export {
     AddOperator
@@ -64,9 +69,9 @@ export {
 }
 from './LogicalOperator.js';
 export {
-    RandomOperator
+    WhiteNoise
 }
-from './RandomOperator.js';
+from './WhiteNoise.js';
 export {
     AbstractOperator
 }

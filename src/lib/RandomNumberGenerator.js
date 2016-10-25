@@ -18,4 +18,8 @@ export class RandomNumberGenerator {
         return this.seed / 233280;
     }
 
+    setSeed(seed) {
+        this.seed = seed;
+    }
+
 }

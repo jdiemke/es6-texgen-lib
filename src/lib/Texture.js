@@ -36,6 +36,10 @@ export class Texture {
             this.texture[(x + (y * 256)) * 4 + 3]);
     }
 
+    getBilinearFilteredPixel(x, y) {
+        return new Color(1, 1, 1);
+    }
+
     fill(color) {
         for (let y = 0; y < 256; y++) {
             for (let x = 0; x < 256; x++) {

@@ -7,8 +7,12 @@
 
 'use strict';
 
-import {Texture} from './Texture.js';
-import {OperatorRegistry} from './OperatorRegistry.js';
+import {
+    Texture
+} from './Texture.js';
+import {
+    OperatorRegistry
+} from './OperatorRegistry.js';
 
 export class AbstractOperator {
 
@@ -39,6 +43,13 @@ export class AbstractOperator {
             this.parents[i].evaluate();
         }
         this.process();
+    }
+
+    /**
+     * The default implementation returns true.
+     */
+    isInputAccepted() {
+        return true;
     }
 
     /**

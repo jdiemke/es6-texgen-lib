@@ -45,7 +45,8 @@ class Application {
         canvas3.putImageData(operator3.getTexture().getImageData());
         canvas3.appendToHtmlDom();
 
-        let operator4 = new tg.RandomOperator();
+        let operator4 = new tg.WhiteNoise();
+        operator4.setSeed(23);
         operator4.evaluate();
 
         let canvas4 = new tg.Canvas(256, 256);
@@ -83,8 +84,12 @@ class Application {
         op9.addParent(operator8);
         op9.evaluate();
 
+        let op10 = new tg.Tile();
+        op10.addParent(op9);
+        op10.evaluate();
+
         let canvas8 = new tg.Canvas(256, 256);
-        canvas8.putImageData(op9.getTexture().getImageData());
+        canvas8.putImageData(op10.getTexture().getImageData());
         canvas8.appendToHtmlDom();
     }
 
