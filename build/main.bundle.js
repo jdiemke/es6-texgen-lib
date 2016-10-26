@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(16);
+	var _MyOperator = __webpack_require__(19);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -108,7 +108,8 @@
 	            canvas3.putImageData(operator3.getTexture().getImageData());
 	            canvas3.appendToHtmlDom();
 	
-	            var operator4 = new tg.RandomOperator();
+	            var operator4 = new tg.WhiteNoise();
+	            operator4.setSeed(23);
 	            operator4.evaluate();
 	
 	            var canvas4 = new tg.Canvas(256, 256);
@@ -146,9 +147,39 @@
 	            op9.addParent(operator8);
 	            op9.evaluate();
 	
+	            var op10 = new tg.Tile();
+	            op10.addParent(operator4);
+	            op10.evaluate();
+	
+	            var op11 = new tg.ColorizeOperator();
+	            op11.addParent(op10);
+	            op11.setBackgroundColor(new tg.Color(1, 1, 0));
+	            op11.setForgroundColor(new tg.Color(1, 0, 0));
+	            op11.evaluate();
+	
+	            var canvas10 = new tg.Canvas(256, 256);
+	            canvas10.putImageData(op11.getTexture().getImageData());
+	            canvas10.appendToHtmlDom();
+	
+	            var op12 = new tg.Turbolence();
+	            operator7.setLinearCombinationType(2);
+	            op12.addParent(operator7);
+	            op12.evaluate();
+	
 	            var canvas8 = new tg.Canvas(256, 256);
-	            canvas8.putImageData(op9.getTexture().getImageData());
+	            canvas8.putImageData(op12.getTexture().getImageData());
 	            canvas8.appendToHtmlDom();
+	
+	            var op13 = new tg.PlasmaFractal();
+	            op13.evaluate();
+	
+	            var op14 = new tg.ColorizeOperator();
+	            op14.addParent(op13);
+	            op14.evaluate();
+	
+	            var canvas9 = new tg.Canvas(256, 256);
+	            canvas9.putImageData(op14.getTexture().getImageData());
+	            canvas9.appendToHtmlDom();
 	        }
 	    }, {
 	        key: 'logLibraryNameAndVersion',
@@ -266,7 +297,34 @@
 	    }
 	});
 	
-	var _AddOperator = __webpack_require__(11);
+	var _PlasmaFractal = __webpack_require__(11);
+	
+	Object.defineProperty(exports, 'PlasmaFractal', {
+	    enumerable: true,
+	    get: function get() {
+	        return _PlasmaFractal.PlasmaFractal;
+	    }
+	});
+	
+	var _Turbolence = __webpack_require__(13);
+	
+	Object.defineProperty(exports, 'Turbolence', {
+	    enumerable: true,
+	    get: function get() {
+	        return _Turbolence.Turbolence;
+	    }
+	});
+	
+	var _Tile = __webpack_require__(14);
+	
+	Object.defineProperty(exports, 'Tile', {
+	    enumerable: true,
+	    get: function get() {
+	        return _Tile.Tile;
+	    }
+	});
+	
+	var _AddOperator = __webpack_require__(15);
 	
 	Object.defineProperty(exports, 'AddOperator', {
 	    enumerable: true,
@@ -275,7 +333,7 @@
 	    }
 	});
 	
-	var _LogicalOperator = __webpack_require__(12);
+	var _LogicalOperator = __webpack_require__(16);
 	
 	Object.defineProperty(exports, 'LogicalOperator', {
 	    enumerable: true,
@@ -284,12 +342,12 @@
 	    }
 	});
 	
-	var _RandomOperator = __webpack_require__(13);
+	var _WhiteNoise = __webpack_require__(17);
 	
-	Object.defineProperty(exports, 'RandomOperator', {
+	Object.defineProperty(exports, 'WhiteNoise', {
 	    enumerable: true,
 	    get: function get() {
-	        return _RandomOperator.RandomOperator;
+	        return _WhiteNoise.WhiteNoise;
 	    }
 	});
 	
@@ -302,7 +360,7 @@
 	    }
 	});
 	
-	var _CellOperator = __webpack_require__(15);
+	var _CellOperator = __webpack_require__(18);
 	
 	Object.defineProperty(exports, 'CellOperator', {
 	    enumerable: true,
@@ -364,6 +422,25 @@
 	            x = (x | 0) % 256;
 	            y = (y | 0) % 256;
 	            return new _Color.Color(this.texture[(x + y * 256) * 4], this.texture[(x + y * 256) * 4 + 1], this.texture[(x + y * 256) * 4 + 2], this.texture[(x + y * 256) * 4 + 3]);
+	        }
+	    }, {
+	        key: 'getBilinearFilteredPixel',
+	        value: function getBilinearFilteredPixel(x, y) {
+	            var x0 = (x | 0) % 256;
+	            var x1 = (x + 1 | 0) % 256;
+	            var y0 = (y | 0) % 256;
+	            var y1 = (y + 1 | 0) % 256;
+	
+	            var x0y0 = this.getPixel(x0, y0);
+	            var x1y0 = this.getPixel(x1, y0);
+	            var x0y1 = this.getPixel(x0, y1);
+	            var x1y1 = this.getPixel(x1, y1);
+	
+	            var col1 = x0y0.multiply(1 - (x - Math.floor(x))).add(x1y0.multiply(x - Math.floor(x)));
+	            var col2 = x0y1.multiply(1 - (x - Math.floor(x))).add(x1y1.multiply(x - Math.floor(x)));
+	            var col = col1.multiply(1 - (y - Math.floor(y))).add(col2.multiply(y - Math.floor(y)));
+	
+	            return col;
 	        }
 	    }, {
 	        key: 'fill',
@@ -585,6 +662,24 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
+	var InvalidParameterException = function () {
+	    function InvalidParameterException() {
+	        _classCallCheck(this, InvalidParameterException);
+	
+	        this.name = "InvalidParameterException";
+	        this.message = "Error detected. The number of parents is invalid.";
+	    }
+	
+	    _createClass(InvalidParameterException, [{
+	        key: 'toString',
+	        value: function toString() {
+	            return this.name + ': ' + this.message;
+	        }
+	    }]);
+	
+	    return InvalidParameterException;
+	}();
+	
 	var AbstractOperator = exports.AbstractOperator = function () {
 	
 	    /**
@@ -619,10 +714,25 @@
 	    }, {
 	        key: 'evaluate',
 	        value: function evaluate() {
+	            if (!this.isInputAccepted()) {
+	                throw new InvalidParameterException();
+	            }
+	
 	            for (var i in this.parents) {
 	                this.parents[i].evaluate();
 	            }
+	
 	            this.process();
+	        }
+	
+	        /**
+	         * The default implementation returns true.
+	         */
+	
+	    }, {
+	        key: 'isInputAccepted',
+	        value: function isInputAccepted() {
+	            return true;
 	        }
 	
 	        /**
@@ -826,6 +936,16 @@
 	                }
 	            }
 	        }
+	    }, {
+	        key: 'setBackgroundColor',
+	        value: function setBackgroundColor(color) {
+	            this.color1 = color;
+	        }
+	    }, {
+	        key: 'setForgroundColor',
+	        value: function setForgroundColor(color) {
+	            this.color2 = color;
+	        }
 	    }]);
 
 	    return ColorizeOperator;
@@ -891,6 +1011,297 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.PlasmaFractal = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	var _RandomNumberGenerator = __webpack_require__(12);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PlasmaFractal = exports.PlasmaFractal = function (_AbstractOperator) {
+	    _inherits(PlasmaFractal, _AbstractOperator);
+	
+	    function PlasmaFractal() {
+	        _classCallCheck(this, PlasmaFractal);
+	
+	        var _this = _possibleConstructorReturn(this, (PlasmaFractal.__proto__ || Object.getPrototypeOf(PlasmaFractal)).call(this));
+	
+	        _this.displacement = 0.4;
+	        _this.seed = 255;
+	        _this.roughness = 240;
+	        return _this;
+	    }
+	
+	    _createClass(PlasmaFractal, [{
+	        key: 'process',
+	        value: function process() {
+	            this.rng = new _RandomNumberGenerator.RandomNumberGenerator();
+	            this.rng.setSeed(this.seed);
+	
+	            var p1 = 0.5;
+	            this.texture.setPixel(0, 0, new _Color.Color(p1));
+	            this.fractalPlasma(0, 0, 256, 256, 256);
+	        }
+	    }, {
+	        key: 'fractalPlasma',
+	        value: function fractalPlasma(x1, y1, x2, y2, magnitude) {
+	
+	            var cx = (x1 + x2) / 2;
+	            var cy = (y1 + y2) / 2;
+	
+	            if (x2 - x1 == 1) {
+	                return;
+	            }
+	
+	            var p1 = this.texture.getPixel(x1 & 0xff, y1 & 0xff).r;
+	            var p2 = this.texture.getPixel(x2 & 0xff, y1 & 0xff).r;
+	            var p3 = this.texture.getPixel(x1 & 0xff, y2 & 0xff).r;
+	            var p4 = this.texture.getPixel(x2 & 0xff, y2 & 0xff).r;
+	
+	            var mymagnitude = magnitude;
+	
+	            var displacement = -(mymagnitude / 2.) * (this.displacement / 256.) + this.displacement / 255. * magnitude * this.rng.getInteger();
+	            magnitude = mymagnitude * (this.roughness / 255.);
+	
+	            var center = (p1 + p2 + p3 + p4) / 4. + displacement;
+	            center = Math.min(Math.max(center, 0), 1);
+	            this.texture.setPixel(cx & 0xff, cy & 0xff, new _Color.Color(center));
+	
+	            var top = (p1 + p2) / 2;
+	            top = Math.min(Math.max(top, 0), 1);
+	            this.texture.setPixel(cx & 0xff, y1 & 0xff, new _Color.Color(top));
+	
+	            var left = (p1 + p3) / 2;
+	            left = Math.min(Math.max(left, 0), 1);
+	            this.texture.setPixel(x1 & 0xff, cy & 0xff, new _Color.Color(left));
+	
+	            var right = (p2 + p4) / 2;
+	            right = Math.min(Math.max(right, 0), 1);
+	            this.texture.setPixel(x2 & 0xff, cy & 0xff, new _Color.Color(right));
+	
+	            var bottom = (p3 + p4) / 2;
+	            bottom = Math.min(Math.max(bottom, 0), 1);
+	            this.texture.setPixel(cx & 0xff, y2 & 0xff, new _Color.Color(bottom));
+	
+	            this.fractalPlasma(x1, y1, cx, cy, magnitude);
+	            this.fractalPlasma(cx, y1, x2, cy, magnitude);
+	            this.fractalPlasma(x1, cy, cx, y2, magnitude);
+	            this.fractalPlasma(cx, cy, x2, y2, magnitude);
+	        }
+	    }, {
+	        key: 'setSeed',
+	        value: function setSeed(seed) {
+	            this.seed = seed;
+	        }
+	    }]);
+
+	    return PlasmaFractal;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	/**
+	 * The RandomNumberGenerator generates random numbers.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-16
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var RandomNumberGenerator = exports.RandomNumberGenerator = function () {
+	    function RandomNumberGenerator() {
+	        _classCallCheck(this, RandomNumberGenerator);
+	
+	        this.seed = 6;
+	    }
+	
+	    _createClass(RandomNumberGenerator, [{
+	        key: 'getInteger',
+	        value: function getInteger() {
+	            this.seed = (this.seed * 9301 + 49297) % 233280;
+	            return this.seed / 233280;
+	        }
+	    }, {
+	        key: 'setSeed',
+	        value: function setSeed(seed) {
+	            this.seed = seed;
+	        }
+	    }]);
+
+	    return RandomNumberGenerator;
+	}();
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * The Turbolence class implements an operator that distorts a texture based
+	 * on trigonometroc functions.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-26
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Turbolence = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Turbolence = exports.Turbolence = function (_AbstractOperator) {
+	    _inherits(Turbolence, _AbstractOperator);
+	
+	    function Turbolence() {
+	        _classCallCheck(this, Turbolence);
+	
+	        var _this = _possibleConstructorReturn(this, (Turbolence.__proto__ || Object.getPrototypeOf(Turbolence)).call(this));
+	
+	        _this.color = new _Color.Color(1, 0, 0);
+	        _this.sinePeriods = 3;
+	        _this.cosinePeriods = 3;
+	        return _this;
+	    }
+	
+	    _createClass(Turbolence, [{
+	        key: 'isInputAccepted',
+	        value: function isInputAccepted() {
+	            return this.parents.length == 1;
+	        }
+	    }, {
+	        key: 'process',
+	        value: function process() {
+	            var source = this.parents[0].texture;
+	            var xscale = 2;
+	            var yscale = 1;
+	
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var xdisplace = Math.cos(2 * Math.PI * x / 256. * xscale) * Math.sin(x * 2 * Math.PI / 256. * yscale) * 16.;
+	                    var ydisplace = Math.cos(2 * Math.PI * y / 256. * xscale) * Math.sin(y * 2 * Math.PI / 256. * yscale) * 16.;
+	
+	                    var u = x + xdisplace;
+	                    var v = y + ydisplace;
+	
+	                    var filteredTexel = source.getBilinearFilteredPixel(u, v);
+	                    this.texture.setPixel(x, y, filteredTexel);
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'setColor',
+	        value: function setColor(color) {
+	            this.color = color;
+	        }
+	    }]);
+
+	    return Turbolence;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Tile = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	var _RandomNumberGenerator = __webpack_require__(12);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Tile = exports.Tile = function (_AbstractOperator) {
+	    _inherits(Tile, _AbstractOperator);
+	
+	    function Tile() {
+	        _classCallCheck(this, Tile);
+	
+	        return _possibleConstructorReturn(this, (Tile.__proto__ || Object.getPrototypeOf(Tile)).apply(this, arguments));
+	    }
+	
+	    _createClass(Tile, [{
+	        key: 'process',
+	        value: function process() {
+	            var source = this.parents[0].texture;
+	
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    //let color = source.getBilinearFilteredPixel(x * 2 - 0.5, y * 2 - 0.5);
+	                    var color = source.getBilinearFilteredPixel(x * 0.2, y * 0.2);
+	                    this.texture.setPixel(x, y, color);
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'isInputAccepted',
+	        value: function isInputAccepted() {
+	            return this.parents.length == 1;
+	        }
+	    }, {
+	        key: 'setSeed',
+	        value: function setSeed(seed) {
+	            this.seed = seed;
+	        }
+	    }]);
+
+	    return Tile;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.AddOperator = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -932,7 +1343,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 12 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -979,7 +1390,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 13 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -987,7 +1398,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.RandomOperator = undefined;
+	exports.WhiteNoise = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -995,7 +1406,7 @@
 	
 	var _Color = __webpack_require__(3);
 	
-	var _RandomNumberGenerator = __webpack_require__(14);
+	var _RandomNumberGenerator = __webpack_require__(12);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -1003,72 +1414,42 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var RandomOperator = exports.RandomOperator = function (_AbstractOperator) {
-	    _inherits(RandomOperator, _AbstractOperator);
+	var WhiteNoise = exports.WhiteNoise = function (_AbstractOperator) {
+	    _inherits(WhiteNoise, _AbstractOperator);
 	
-	    function RandomOperator() {
-	        _classCallCheck(this, RandomOperator);
+	    function WhiteNoise() {
+	        _classCallCheck(this, WhiteNoise);
 	
-	        return _possibleConstructorReturn(this, (RandomOperator.__proto__ || Object.getPrototypeOf(RandomOperator)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (WhiteNoise.__proto__ || Object.getPrototypeOf(WhiteNoise)).call(this));
+	
+	        _this.seed = 0;
+	        return _this;
 	    }
 	
-	    _createClass(RandomOperator, [{
+	    _createClass(WhiteNoise, [{
 	        key: 'process',
 	        value: function process() {
 	            var rng = new _RandomNumberGenerator.RandomNumberGenerator();
+	            rng.setSeed(this.seed);
+	
 	            for (var y = 0; y < 256; y++) {
 	                for (var x = 0; x < 256; x++) {
-	                    var color = new _Color.Color(rng.getInteger() * 256 / 255);
-	                    this.texture.setPixel(x, y, color);
+	                    this.texture.setPixel(x, y, new _Color.Color(rng.getInteger() * 256 / 255));
 	                }
 	            }
 	        }
-	    }]);
-
-	    return RandomOperator;
-	}(_AbstractOperator2.AbstractOperator);
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	/**
-	 * The RandomNumberGenerator generates random numbers.
-	 *
-	 * @author jdiemke <johannes.diemke@eventim.de>
-	 * @since 2016-10-16
-	 */
-	
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var RandomNumberGenerator = exports.RandomNumberGenerator = function () {
-	    function RandomNumberGenerator() {
-	        _classCallCheck(this, RandomNumberGenerator);
-	
-	        this.seed = 6;
-	    }
-	
-	    _createClass(RandomNumberGenerator, [{
-	        key: 'getInteger',
-	        value: function getInteger() {
-	            this.seed = (this.seed * 9301 + 49297) % 233280;
-	            return this.seed / 233280;
+	    }, {
+	        key: 'setSeed',
+	        value: function setSeed(seed) {
+	            this.seed = seed;
 	        }
 	    }]);
 
-	    return RandomNumberGenerator;
-	}();
+	    return WhiteNoise;
+	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 15 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1092,7 +1473,7 @@
 	
 	var _Color = __webpack_require__(3);
 	
-	var _RandomNumberGenerator = __webpack_require__(14);
+	var _RandomNumberGenerator = __webpack_require__(12);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -1208,7 +1589,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 16 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
