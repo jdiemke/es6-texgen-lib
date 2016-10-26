@@ -46,12 +46,20 @@ export {
 }
 from './ColorizeOperator.js';
 
-
-
 export {
     DistortOperator
 }
 from './DistortOperator.js';
+
+export {
+    PlasmaFractal
+}
+from './PlasmaFractal.js';
+
+export {
+    Turbolence
+}
+from './Turbolence.js';
 
 
 export {

@@ -18,7 +18,8 @@ export class Tile extends AbstractOperator {
 
         for (let y = 0; y < 256; y++) {
             for (let x = 0; x < 256; x++) {
-                let color = source.getPixel(x * 2 - 0.5, y * 2 - 0.5);
+                //let color = source.getBilinearFilteredPixel(x * 2 - 0.5, y * 2 - 0.5);
+                let color = source.getBilinearFilteredPixel(x * 0.2, y * 0.2);
                 this.texture.setPixel(x, y, color);
             }
         }

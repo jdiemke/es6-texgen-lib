@@ -85,12 +85,39 @@ class Application {
         op9.evaluate();
 
         let op10 = new tg.Tile();
-        op10.addParent(op9);
+        op10.addParent(operator4);
         op10.evaluate();
 
+        let op11 = new tg.ColorizeOperator();
+        op11.addParent(op10);
+        op11.setBackgroundColor(new tg.Color(1, 1, 0));
+        op11.setForgroundColor(new tg.Color(1, 0, 0));
+        op11.evaluate();
+
+        let canvas10 = new tg.Canvas(256, 256);
+        canvas10.putImageData(op11.getTexture().getImageData());
+        canvas10.appendToHtmlDom();
+
+
+        let op12 = new tg.Turbolence();
+        operator7.setLinearCombinationType(2);
+        op12.addParent(operator7);
+        op12.evaluate();
+
         let canvas8 = new tg.Canvas(256, 256);
-        canvas8.putImageData(op10.getTexture().getImageData());
+        canvas8.putImageData(op12.getTexture().getImageData());
         canvas8.appendToHtmlDom();
+
+        let op13 = new tg.PlasmaFractal();
+        op13.evaluate();
+
+        let op14 = new tg.ColorizeOperator();
+        op14.addParent(op13);
+        op14.evaluate();
+
+        let canvas9 = new tg.Canvas(256, 256);
+        canvas9.putImageData(op14.getTexture().getImageData());
+        canvas9.appendToHtmlDom();
     }
 
     logLibraryNameAndVersion() {
@@ -102,7 +129,7 @@ class Application {
     logOperatorRegistry() {
         let operatorRegistry = tg.OperatorRegistry.getInstance();
         let types = operatorRegistry.getRegisteredTypes().toString()
-        console.log('registered types: ' + types);
+        console.log(`registered types: ${types}`);
     }
 
 }

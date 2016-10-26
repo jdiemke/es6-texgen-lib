@@ -22,4 +22,12 @@ export class ColorizeOperator extends AbstractOperator {
             }
     }
 
+    setBackgroundColor(color) {
+        this.color1 = color;
+    }
+
+    setForgroundColor(color) {
+        this.color2 = color;
+    }
+
 }

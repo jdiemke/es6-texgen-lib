@@ -14,6 +14,19 @@ import {
     OperatorRegistry
 } from './OperatorRegistry.js';
 
+
+class InvalidParameterException {
+    constructor() {
+        this.name = "InvalidParameterException";
+        this.message = "Error detected. The number of parents is invalid.";
+    }
+
+    toString() {
+        return `${this.name}: ${this.message}`;
+    }
+
+}
+
 export class AbstractOperator {
 
     /**
@@ -39,9 +52,14 @@ export class AbstractOperator {
      * operator is processed.
      */
     evaluate() {
+        if (!this.isInputAccepted()) {
+            throw new InvalidParameterException();
+        }
+
         for (let i in this.parents) {
             this.parents[i].evaluate();
         }
+
         this.process();
     }
 

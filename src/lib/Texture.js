@@ -37,7 +37,21 @@ export class Texture {
     }
 
     getBilinearFilteredPixel(x, y) {
-        return new Color(1, 1, 1);
+        let x0 = (x | 0) % 256;
+        let x1 = ((x + 1) | 0) % 256;
+        let y0 = (y | 0) % 256;
+        let y1 = ((y + 1) | 0) % 256;
+
+        let x0y0 = this.getPixel(x0, y0);
+        let x1y0 = this.getPixel(x1, y0);
+        let x0y1 = this.getPixel(x0, y1);
+        let x1y1 = this.getPixel(x1, y1);
+
+        let col1 = x0y0.multiply(1 - (x - Math.floor(x))).add(x1y0.multiply((x - Math.floor(x))));
+        let col2 = x0y1.multiply(1 - (x - Math.floor(x))).add(x1y1.multiply((x - Math.floor(x))));
+        let col = col1.multiply(1 - (y - Math.floor(y))).add(col2.multiply((y - Math.floor(y))));
+
+        return col;
     }
 
     fill(color) {
