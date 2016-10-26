@@ -94,9 +94,9 @@ class Application {
     }
 
     logLibraryNameAndVersion() {
-        console.log('name      : ' + tg.distribution.baseName);
-        console.log('version   : ' + tg.distribution.version);
-        console.log('full name : ' + tg.distribution.fullName);
+        console.log(`name      : ${tg.distribution.baseName}`);
+        console.log(`version   : ${tg.distribution.version}`);
+        console.log(`full name : ${tg.distribution.fullName}`);
     }
 
     logOperatorRegistry() {
