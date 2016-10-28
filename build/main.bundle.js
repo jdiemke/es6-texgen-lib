@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(19);
+	var _MyOperator = __webpack_require__(20);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -180,6 +180,14 @@
 	            var canvas9 = new tg.Canvas(256, 256);
 	            canvas9.putImageData(op14.getTexture().getImageData());
 	            canvas9.appendToHtmlDom();
+	
+	            var op15 = new tg.AdjustIntensity();
+	            op15.addParent(op14);
+	            op15.evaluate();
+	
+	            var canvas11 = new tg.Canvas(256, 256);
+	            canvas11.putImageData(op15.getTexture().getImageData());
+	            canvas11.appendToHtmlDom();
 	        }
 	    }, {
 	        key: 'logLibraryNameAndVersion',
@@ -324,7 +332,16 @@
 	    }
 	});
 	
-	var _AddOperator = __webpack_require__(15);
+	var _AdjustIntensity = __webpack_require__(15);
+	
+	Object.defineProperty(exports, 'AdjustIntensity', {
+	    enumerable: true,
+	    get: function get() {
+	        return _AdjustIntensity.AdjustIntensity;
+	    }
+	});
+	
+	var _AddOperator = __webpack_require__(16);
 	
 	Object.defineProperty(exports, 'AddOperator', {
 	    enumerable: true,
@@ -333,7 +350,7 @@
 	    }
 	});
 	
-	var _LogicalOperator = __webpack_require__(16);
+	var _LogicalOperator = __webpack_require__(17);
 	
 	Object.defineProperty(exports, 'LogicalOperator', {
 	    enumerable: true,
@@ -342,7 +359,7 @@
 	    }
 	});
 	
-	var _WhiteNoise = __webpack_require__(17);
+	var _WhiteNoise = __webpack_require__(18);
 	
 	Object.defineProperty(exports, 'WhiteNoise', {
 	    enumerable: true,
@@ -360,7 +377,7 @@
 	    }
 	});
 	
-	var _CellOperator = __webpack_require__(18);
+	var _CellOperator = __webpack_require__(19);
 	
 	Object.defineProperty(exports, 'CellOperator', {
 	    enumerable: true,
@@ -1302,6 +1319,58 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.AdjustIntensity = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AdjustIntensity = exports.AdjustIntensity = function (_AbstractOperator) {
+	    _inherits(AdjustIntensity, _AbstractOperator);
+	
+	    function AdjustIntensity() {
+	        _classCallCheck(this, AdjustIntensity);
+	
+	        var _this = _possibleConstructorReturn(this, (AdjustIntensity.__proto__ || Object.getPrototypeOf(AdjustIntensity)).call(this));
+	
+	        _this.color = new _Color.Color(0.3, 0.0, 0.0);
+	        return _this;
+	    }
+	
+	    _createClass(AdjustIntensity, [{
+	        key: 'process',
+	        value: function process() {
+	            var source = this.parents[0].texture;
+	
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var result = source.getPixel(x, y).add(this.color);
+	                    this.texture.setPixel(x, y, result);
+	                }
+	            }
+	        }
+	    }]);
+
+	    return AdjustIntensity;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.AddOperator = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1343,7 +1412,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1390,7 +1459,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1449,7 +1518,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1589,7 +1658,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
