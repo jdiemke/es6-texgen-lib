@@ -126,6 +126,15 @@ class Application {
         let canvas11 = new tg.Canvas(256, 256);
         canvas11.putImageData(op15.getTexture().getImageData());
         canvas11.appendToHtmlDom();
+
+        let op16 = new tg.AlphaBlend();
+        op16.addParent(op14);
+        op16.addParent(operator7);
+        op16.evaluate();
+
+        let canvas12 = new tg.Canvas(256, 256);
+        canvas12.putImageData(op16.getTexture().getImageData());
+        canvas12.appendToHtmlDom();
     }
 
     logLibraryNameAndVersion() {

@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(20);
+	var _MyOperator = __webpack_require__(21);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -188,6 +188,15 @@
 	            var canvas11 = new tg.Canvas(256, 256);
 	            canvas11.putImageData(op15.getTexture().getImageData());
 	            canvas11.appendToHtmlDom();
+	
+	            var op16 = new tg.AlphaBlend();
+	            op16.addParent(op14);
+	            op16.addParent(operator7);
+	            op16.evaluate();
+	
+	            var canvas12 = new tg.Canvas(256, 256);
+	            canvas12.putImageData(op16.getTexture().getImageData());
+	            canvas12.appendToHtmlDom();
 	        }
 	    }, {
 	        key: 'logLibraryNameAndVersion',
@@ -341,7 +350,16 @@
 	    }
 	});
 	
-	var _AddOperator = __webpack_require__(16);
+	var _AlphaBlend = __webpack_require__(16);
+	
+	Object.defineProperty(exports, 'AlphaBlend', {
+	    enumerable: true,
+	    get: function get() {
+	        return _AlphaBlend.AlphaBlend;
+	    }
+	});
+	
+	var _AddOperator = __webpack_require__(17);
 	
 	Object.defineProperty(exports, 'AddOperator', {
 	    enumerable: true,
@@ -350,7 +368,7 @@
 	    }
 	});
 	
-	var _LogicalOperator = __webpack_require__(17);
+	var _LogicalOperator = __webpack_require__(18);
 	
 	Object.defineProperty(exports, 'LogicalOperator', {
 	    enumerable: true,
@@ -359,7 +377,7 @@
 	    }
 	});
 	
-	var _WhiteNoise = __webpack_require__(18);
+	var _WhiteNoise = __webpack_require__(19);
 	
 	Object.defineProperty(exports, 'WhiteNoise', {
 	    enumerable: true,
@@ -377,7 +395,7 @@
 	    }
 	});
 	
-	var _CellOperator = __webpack_require__(19);
+	var _CellOperator = __webpack_require__(20);
 	
 	Object.defineProperty(exports, 'CellOperator', {
 	    enumerable: true,
@@ -1371,6 +1389,67 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.AlphaBlend = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AlphaBlend = exports.AlphaBlend = function (_AbstractOperator) {
+	    _inherits(AlphaBlend, _AbstractOperator);
+	
+	    function AlphaBlend() {
+	        _classCallCheck(this, AlphaBlend);
+	
+	        var _this = _possibleConstructorReturn(this, (AlphaBlend.__proto__ || Object.getPrototypeOf(AlphaBlend)).call(this));
+	
+	        _this.alpha = 0.75;
+	        return _this;
+	    }
+	
+	    _createClass(AlphaBlend, [{
+	        key: 'isInputAccepted',
+	        value: function isInputAccepted() {
+	            return this.parents.length == 2;
+	        }
+	    }, {
+	        key: 'process',
+	        value: function process() {
+	            var source1 = this.parents[0].texture;
+	            var source2 = this.parents[1].texture;
+	
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var color1 = source1.getPixel(x, y);
+	                    var color2 = source2.getPixel(x, y);
+	                    var result = color1.multiply(1.0 - this.alpha).add(color2.multiply(this.alpha));
+	
+	                    this.texture.setPixel(x, y, result);
+	                }
+	            }
+	        }
+	    }]);
+
+	    return AlphaBlend;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.AddOperator = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1412,7 +1491,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1459,7 +1538,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1518,7 +1597,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1658,7 +1737,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

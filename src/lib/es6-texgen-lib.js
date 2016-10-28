@@ -72,6 +72,11 @@ export {
 from './AdjustIntensity.js';
 
 export {
+    AlphaBlend
+}
+from './AlphaBlend.js';
+
+export {
     AddOperator
 }
 from './AddOperator.js';
