@@ -35,7 +35,7 @@ export class CellOperator extends AbstractOperator {
 
     process() {
         this.uniformRandom();
-        this.distBuffer = new Float32Array(256 * 256);
+        this.distBuffer = new Float64Array(256 * 256);
         var mindist = Number.MAX_VALUE;
         var maxdist = 0;
 

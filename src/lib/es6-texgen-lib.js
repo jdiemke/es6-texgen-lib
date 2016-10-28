@@ -77,6 +77,11 @@ export {
 from './AlphaBlend.js';
 
 export {
+    Chrome
+}
+from './Chrome.js';
+
+export {
     AddOperator
 }
 from './AddOperator.js';

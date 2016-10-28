@@ -135,6 +135,14 @@ class Application {
         let canvas12 = new tg.Canvas(256, 256);
         canvas12.putImageData(op16.getTexture().getImageData());
         canvas12.appendToHtmlDom();
+
+        let op17 = new tg.Chrome();
+        op17.addParent(op16);
+        op17.evaluate();
+
+        let canvas13 = new tg.Canvas(256, 256);
+        canvas13.putImageData(op17.getTexture().getImageData());
+        canvas13.appendToHtmlDom();
     }
 
     logLibraryNameAndVersion() {
