@@ -61,12 +61,15 @@ export {
 }
 from './Turbolence.js';
 
-
 export {
     Tile
 }
 from './Tile.js';
 
+export {
+    AdjustIntensity
+}
+from './AdjustIntensity.js';
 
 export {
     AddOperator

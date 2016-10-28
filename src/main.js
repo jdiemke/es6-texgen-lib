@@ -118,6 +118,14 @@ class Application {
         let canvas9 = new tg.Canvas(256, 256);
         canvas9.putImageData(op14.getTexture().getImageData());
         canvas9.appendToHtmlDom();
+
+        let op15 = new tg.AdjustIntensity();
+        op15.addParent(op14);
+        op15.evaluate();
+
+        let canvas11 = new tg.Canvas(256, 256);
+        canvas11.putImageData(op15.getTexture().getImageData());
+        canvas11.appendToHtmlDom();
     }
 
     logLibraryNameAndVersion() {
