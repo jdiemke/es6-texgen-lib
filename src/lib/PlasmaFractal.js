@@ -1,15 +1,9 @@
 'use strict';
 
-import {
-    AbstractOperator
-} from './AbstractOperator.js';
-import {
-    Color
-} from './Color.js';
+import {AbstractOperator} from './AbstractOperator.js';
+import {Color} from './Color.js';
 
-import {
-    RandomNumberGenerator
-} from './RandomNumberGenerator.js';
+import {RandomNumberGenerator} from './RandomNumberGenerator.js';
 
 export class PlasmaFractal extends AbstractOperator {
 
@@ -45,8 +39,7 @@ export class PlasmaFractal extends AbstractOperator {
 
         let mymagnitude = magnitude;
 
-        let displacement = ((-(mymagnitude / 2.) * (this.displacement / 256.)) +
-            (this.displacement / 255.) * magnitude * this.rng.getInteger());
+        let displacement = ((-(mymagnitude / 2.) * (this.displacement / 256.)) + (this.displacement / 255.) * magnitude * this.rng.getInteger());
         magnitude = (mymagnitude * (this.roughness / 255.));
 
         let center = ((p1 + p2 + p3 + p4) / 4. + displacement);

@@ -1,15 +1,8 @@
 'use strict';
 
-import {
-    AbstractOperator
-} from './AbstractOperator.js';
-import {
-    Color
-} from './Color.js';
-
-import {
-    RandomNumberGenerator
-} from './RandomNumberGenerator.js';
+import {AbstractOperator} from './AbstractOperator.js';
+import {Color} from './Color.js';
+import {RandomNumberGenerator} from './RandomNumberGenerator.js';
 
 export class WhiteNoise extends AbstractOperator {
 

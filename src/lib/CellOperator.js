@@ -8,17 +8,10 @@
 
 'use strict';
 
-import {
-    AbstractOperator
-} from './AbstractOperator.js';
-
-import {
-    Color
-} from './Color.js';
-
-import {
-    RandomNumberGenerator
-} from './RandomNumberGenerator.js';
+import {AbstractOperator} from './AbstractOperator.js';
+import {Color} from './Color.js';
+import {RandomNumberGenerator} from './RandomNumberGenerator.js';
+import {Metric} from './Metric.js';
 
 export class CellOperator extends AbstractOperator {
 
@@ -29,7 +22,7 @@ export class CellOperator extends AbstractOperator {
         this.distributiontype = 0;
         this.minimumdistance = 2;
         this.linearcombination = 2;
-        this.metric = 0;
+        this.metric = Metric.EUCLIDEAN;
         this.mosaic = false;
     }
 
@@ -43,10 +36,12 @@ export class CellOperator extends AbstractOperator {
             for (var x = 0; x < 256; x++) {
                 var dist = this.distToNearestPoint(x, y, this.points, this.quantity, this.linearcombination, this.metric);
                 this.distBuffer[(x + (y * 256))] = dist;
-                if (dist < mindist) mindist = dist;
-                if (dist > maxdist) maxdist = dist;
+                if (dist < mindist)
+                    mindist = dist;
+                if (dist > maxdist)
+                    maxdist = dist;
+                }
             }
-        }
         for (var y = 0; y < 256; y++) {
             for (var x = 0; x < 256; x++) {
                 var value = (this.distBuffer[(x + (y * 256))] - mindist) / (maxdist - mindist);
@@ -54,7 +49,6 @@ export class CellOperator extends AbstractOperator {
             }
         }
     }
-
 
     distToNearestPoint(x, y, points, number, version, metric) {
         var F = []
@@ -87,11 +81,23 @@ export class CellOperator extends AbstractOperator {
     wrapDist(x, y, px, py, metric) {
         var dx = Math.abs(x - px);
         var dy = Math.abs(y - py);
-        if (dx > 256 / 2) dx = 256 - dx;
-        if (dy > 256 / 2) dy = 256 - dy;
+        if (dx > 256 / 2)
+            dx = 256 - dx;
+        if (dy > 256 / 2)
+            dy = 256 - dy;
 
-        // TODO: different metrics here
-        return Math.sqrt(dx * dx + dy * dy);
+        switch (metric) {
+            case Metric.EUCLIDEAN:
+                return Math.sqrt(dx * dx + dy * dy);
+            case Metric.MANHATTEN:
+                return (dx + dy);
+            case Metric.QUASI_EUCLIDEAN:
+                return Math.sqrt(dx * dx + dy * dy);
+            case Metric.CHEBBYSHEV:
+                return Math.sqrt(dx * dx + dy * dy);
+            default:
+                return Math.sqrt(dx * dx + dy * dy);
+        }
     }
 
     uniformRandom() {

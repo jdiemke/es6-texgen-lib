@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(22);
+	var _MyOperator = __webpack_require__(23);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -205,6 +205,8 @@
 	            var canvas13 = new tg.Canvas(256, 256);
 	            canvas13.putImageData(op17.getTexture().getImageData());
 	            canvas13.appendToHtmlDom();
+	
+	            console.log(tg.Metric.EUCLIDEAN);
 	        }
 	    }, {
 	        key: 'logLibraryNameAndVersion',
@@ -247,183 +249,192 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _Texture = __webpack_require__(2);
 	
 	Object.defineProperty(exports, 'Texture', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Texture.Texture;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Texture.Texture;
+	  }
 	});
 	
 	var _Canvas = __webpack_require__(4);
 	
 	Object.defineProperty(exports, 'Canvas', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Canvas.Canvas;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Canvas.Canvas;
+	  }
 	});
 	
 	var _FillOperator = __webpack_require__(5);
 	
 	Object.defineProperty(exports, 'FillOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _FillOperator.FillOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _FillOperator.FillOperator;
+	  }
 	});
 	
 	var _Color = __webpack_require__(3);
 	
 	Object.defineProperty(exports, 'Color', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Color.Color;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Color.Color;
+	  }
 	});
 	
 	var _SinePlasmaOperator = __webpack_require__(8);
 	
 	Object.defineProperty(exports, 'SinePlasmaOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _SinePlasmaOperator.SinePlasmaOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _SinePlasmaOperator.SinePlasmaOperator;
+	  }
 	});
 	
 	var _OperatorRegistry = __webpack_require__(7);
 	
 	Object.defineProperty(exports, 'OperatorRegistry', {
-	    enumerable: true,
-	    get: function get() {
-	        return _OperatorRegistry.OperatorRegistry;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _OperatorRegistry.OperatorRegistry;
+	  }
 	});
 	
 	var _ColorizeOperator = __webpack_require__(9);
 	
 	Object.defineProperty(exports, 'ColorizeOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _ColorizeOperator.ColorizeOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _ColorizeOperator.ColorizeOperator;
+	  }
 	});
 	
 	var _DistortOperator = __webpack_require__(10);
 	
 	Object.defineProperty(exports, 'DistortOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _DistortOperator.DistortOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _DistortOperator.DistortOperator;
+	  }
 	});
 	
 	var _PlasmaFractal = __webpack_require__(11);
 	
 	Object.defineProperty(exports, 'PlasmaFractal', {
-	    enumerable: true,
-	    get: function get() {
-	        return _PlasmaFractal.PlasmaFractal;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _PlasmaFractal.PlasmaFractal;
+	  }
 	});
 	
 	var _Turbolence = __webpack_require__(13);
 	
 	Object.defineProperty(exports, 'Turbolence', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Turbolence.Turbolence;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Turbolence.Turbolence;
+	  }
 	});
 	
 	var _Tile = __webpack_require__(14);
 	
 	Object.defineProperty(exports, 'Tile', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Tile.Tile;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Tile.Tile;
+	  }
 	});
 	
 	var _AdjustIntensity = __webpack_require__(15);
 	
 	Object.defineProperty(exports, 'AdjustIntensity', {
-	    enumerable: true,
-	    get: function get() {
-	        return _AdjustIntensity.AdjustIntensity;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _AdjustIntensity.AdjustIntensity;
+	  }
 	});
 	
 	var _AlphaBlend = __webpack_require__(16);
 	
 	Object.defineProperty(exports, 'AlphaBlend', {
-	    enumerable: true,
-	    get: function get() {
-	        return _AlphaBlend.AlphaBlend;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _AlphaBlend.AlphaBlend;
+	  }
 	});
 	
 	var _Chrome = __webpack_require__(17);
 	
 	Object.defineProperty(exports, 'Chrome', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Chrome.Chrome;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Chrome.Chrome;
+	  }
 	});
 	
 	var _AddOperator = __webpack_require__(18);
 	
 	Object.defineProperty(exports, 'AddOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _AddOperator.AddOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _AddOperator.AddOperator;
+	  }
 	});
 	
 	var _LogicalOperator = __webpack_require__(19);
 	
 	Object.defineProperty(exports, 'LogicalOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _LogicalOperator.LogicalOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _LogicalOperator.LogicalOperator;
+	  }
 	});
 	
 	var _WhiteNoise = __webpack_require__(20);
 	
 	Object.defineProperty(exports, 'WhiteNoise', {
-	    enumerable: true,
-	    get: function get() {
-	        return _WhiteNoise.WhiteNoise;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _WhiteNoise.WhiteNoise;
+	  }
 	});
 	
 	var _AbstractOperator = __webpack_require__(6);
 	
 	Object.defineProperty(exports, 'AbstractOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _AbstractOperator.AbstractOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _AbstractOperator.AbstractOperator;
+	  }
 	});
 	
 	var _CellOperator = __webpack_require__(21);
 	
 	Object.defineProperty(exports, 'CellOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _CellOperator.CellOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _CellOperator.CellOperator;
+	  }
+	});
+	
+	var _Metric = __webpack_require__(22);
+	
+	Object.defineProperty(exports, 'Metric', {
+	  enumerable: true,
+	  get: function get() {
+	    return _Metric.Metric;
+	  }
 	});
 	var distribution = exports.distribution = {
-	    baseName: 'es6-texgen-lib',
-	    version: '0.1.1',
-	    fullName: 'es6-texgen-lib-v0.1.1'
+	  baseName: 'es6-texgen-lib',
+	  version: '0.1.1',
+	  fullName: 'es6-texgen-lib-v0.1.1'
 	};
 
 /***/ },
@@ -455,7 +466,7 @@
 	    function Texture() {
 	        _classCallCheck(this, Texture);
 	
-	        this.texture = new Float32Array(256 * 256 * 4);
+	        this.texture = new Float64Array(256 * 256 * 4);
 	    }
 	
 	    _createClass(Texture, [{
@@ -1700,6 +1711,8 @@
 	
 	var _RandomNumberGenerator = __webpack_require__(12);
 	
+	var _Metric = __webpack_require__(22);
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1719,7 +1732,7 @@
 	        _this.distributiontype = 0;
 	        _this.minimumdistance = 2;
 	        _this.linearcombination = 2;
-	        _this.metric = 0;
+	        _this.metric = _Metric.Metric.EUCLIDEAN;
 	        _this.mosaic = false;
 	        return _this;
 	    }
@@ -1784,8 +1797,18 @@
 	            if (dx > 256 / 2) dx = 256 - dx;
 	            if (dy > 256 / 2) dy = 256 - dy;
 	
-	            // TODO: different metrics here
-	            return Math.sqrt(dx * dx + dy * dy);
+	            switch (metric) {
+	                case _Metric.Metric.EUCLIDEAN:
+	                    return Math.sqrt(dx * dx + dy * dy);
+	                case _Metric.Metric.MANHATTEN:
+	                    return dx + dy;
+	                case _Metric.Metric.QUASI_EUCLIDEAN:
+	                    return Math.sqrt(dx * dx + dy * dy);
+	                case _Metric.Metric.CHEBBYSHEV:
+	                    return Math.sqrt(dx * dx + dy * dy);
+	                default:
+	                    return Math.sqrt(dx * dx + dy * dy);
+	            }
 	        }
 	    }, {
 	        key: 'uniformRandom',
@@ -1815,6 +1838,36 @@
 
 /***/ },
 /* 22 */
+/***/ function(module, exports) {
+
+	/**
+	 * The Metric class simulates an enum that defines different metric types.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-29
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Metric = exports.Metric = function Metric() {
+	  _classCallCheck(this, Metric);
+	};
+	
+	Metric.EUCLIDEAN = Symbol('EUCLIDEAN');
+	Metric.MANHATTEN = Symbol('MANHATTEN');
+	Metric.QUASI_EUCLIDEAN = Symbol('QUASI_EUCLIDEAN');
+	Metric.CHEBBYSHEV = Symbol('QUASI_EUCLIDEAN');
+	
+	Object.freeze(Metric);
+
+/***/ },
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

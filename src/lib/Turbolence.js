@@ -8,12 +8,8 @@
 
 'use strict';
 
-import {
-    AbstractOperator
-} from './AbstractOperator.js';
-import {
-    Color
-} from './Color.js';
+import {AbstractOperator} from './AbstractOperator.js';
+import {Color} from './Color.js';
 
 export class Turbolence extends AbstractOperator {
 
@@ -35,10 +31,8 @@ export class Turbolence extends AbstractOperator {
 
         for (let y = 0; y < 256; y++) {
             for (let x = 0; x < 256; x++) {
-                let xdisplace = (((Math.cos(2 * Math.PI * x / 256. * xscale)) *
-                    (Math.sin(x * 2 * Math.PI / 256. * yscale))) * 16.);
-                let ydisplace = (((Math.cos(2 * Math.PI * y / 256. * xscale)) *
-                    (Math.sin(y * 2 * Math.PI / 256. * yscale))) * 16.);
+                let xdisplace = (((Math.cos(2 * Math.PI * x / 256. * xscale)) * (Math.sin(x * 2 * Math.PI / 256. * yscale))) * 16.);
+                let ydisplace = (((Math.cos(2 * Math.PI * y / 256. * xscale)) * (Math.sin(y * 2 * Math.PI / 256. * yscale))) * 16.);
 
                 let u = (x + xdisplace);
                 let v = (y + ydisplace);

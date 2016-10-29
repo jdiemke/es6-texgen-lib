@@ -16,88 +16,62 @@ export let distribution = {
     fullName: 'es6-texgen-lib-v0.1.1'
 };
 
-export {
-    Texture
-}
+export {Texture}
 from './Texture.js';
-export {
-    Canvas
-}
+
+export {Canvas}
 from './Canvas.js';
-export {
-    FillOperator
-}
+
+export {FillOperator}
 from './FillOperator.js';
-export {
-    Color
-}
+
+export {Color}
 from './Color.js';
-export {
-    SinePlasmaOperator
-}
+
+export {SinePlasmaOperator}
 from './SinePlasmaOperator.js';
-export {
-    OperatorRegistry
-}
+
+export {OperatorRegistry}
 from './OperatorRegistry.js';
 
-export {
-    ColorizeOperator
-}
+export {ColorizeOperator}
 from './ColorizeOperator.js';
 
-export {
-    DistortOperator
-}
+export {DistortOperator}
 from './DistortOperator.js';
 
-export {
-    PlasmaFractal
-}
+export {PlasmaFractal}
 from './PlasmaFractal.js';
 
-export {
-    Turbolence
-}
+export {Turbolence}
 from './Turbolence.js';
 
-export {
-    Tile
-}
+export {Tile}
 from './Tile.js';
 
-export {
-    AdjustIntensity
-}
+export {AdjustIntensity}
 from './AdjustIntensity.js';
 
-export {
-    AlphaBlend
-}
+export {AlphaBlend}
 from './AlphaBlend.js';
 
-export {
-    Chrome
-}
+export {Chrome}
 from './Chrome.js';
 
-export {
-    AddOperator
-}
+export {AddOperator}
 from './AddOperator.js';
-export {
-    LogicalOperator
-}
+
+export {LogicalOperator}
 from './LogicalOperator.js';
-export {
-    WhiteNoise
-}
+
+export {WhiteNoise}
 from './WhiteNoise.js';
-export {
-    AbstractOperator
-}
+
+export {AbstractOperator}
 from './AbstractOperator.js';
-export {
-    CellOperator
-}
+
+export {CellOperator}
 from './CellOperator.js';
+
+export {Metric}
+from './Metric.js';

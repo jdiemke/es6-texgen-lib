@@ -98,7 +98,6 @@ class Application {
         canvas10.putImageData(op11.getTexture().getImageData());
         canvas10.appendToHtmlDom();
 
-
         let op12 = new tg.Turbolence();
         operator7.setLinearCombinationType(2);
         op12.addParent(operator7);
@@ -143,6 +142,8 @@ class Application {
         let canvas13 = new tg.Canvas(256, 256);
         canvas13.putImageData(op17.getTexture().getImageData());
         canvas13.appendToHtmlDom();
+
+        console.log(tg.Metric.EUCLIDEAN);
     }
 
     logLibraryNameAndVersion() {

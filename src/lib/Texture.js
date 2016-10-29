@@ -15,7 +15,7 @@ import {
 export class Texture {
 
     constructor() {
-        this.texture = new Float32Array(256 * 256 * 4);
+        this.texture = new Float64Array(256 * 256 * 4);
     }
 
     setPixel(x, y, color) {

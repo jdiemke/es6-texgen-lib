@@ -1,9 +1,5 @@
-import {
-    AbstractOperator
-} from './AbstractOperator.js';
-import {
-    Color
-} from './Color.js';
+import {AbstractOperator} from './AbstractOperator.js';
+import {Color} from './Color.js';
 
 export class ColorizeOperator extends AbstractOperator {
 
@@ -20,7 +16,7 @@ export class ColorizeOperator extends AbstractOperator {
                 let finalColor = this.color2.substract(this.color1).multiplyColor(scaleColor).add(this.color1);
                 this.texture.setPixel(x, y, finalColor);
             }
-    }
+        }
 
     setBackgroundColor(color) {
         this.color1 = color;

@@ -1,11 +1,7 @@
 'use strict';
 
-import {
-    AbstractOperator
-} from './AbstractOperator.js';
-import {
-    Color
-} from './Color.js';
+import {AbstractOperator} from './AbstractOperator.js';
+import {Color} from './Color.js';
 
 export class DistortOperator extends AbstractOperator {
 

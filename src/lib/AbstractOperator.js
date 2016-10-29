@@ -7,13 +7,8 @@
 
 'use strict';
 
-import {
-    Texture
-} from './Texture.js';
-import {
-    OperatorRegistry
-} from './OperatorRegistry.js';
-
+import {Texture} from './Texture.js';
+import {OperatorRegistry} from './OperatorRegistry.js';
 
 class InvalidParameterException {
     constructor() {

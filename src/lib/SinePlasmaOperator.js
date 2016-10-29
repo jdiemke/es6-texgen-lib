@@ -8,12 +8,8 @@
 
 'use strict';
 
-import {
-    AbstractOperator
-} from './AbstractOperator.js';
-import {
-    Color
-} from './Color.js';
+import {AbstractOperator} from './AbstractOperator.js';
+import {Color} from './Color.js';
 
 export class SinePlasmaOperator extends AbstractOperator {
 
@@ -27,11 +23,9 @@ export class SinePlasmaOperator extends AbstractOperator {
     process() {
         for (let y = 0; y < 256; y++) {
             for (let x = 0; x < 256; x++) {
-                let f = (Math.sin(2.0 * Math.PI / 256 * x * this.sinePeriods) +
-                    Math.cos(2.0 * Math.PI / 256 * y * this.cosinePeriods) + 2) / 4.0;
+                let f = (Math.sin(2.0 * Math.PI / 256 * x * this.sinePeriods) + Math.cos(2.0 * Math.PI / 256 * y * this.cosinePeriods) + 2) / 4.0;
 
-                this.texture.setPixel(x, y,
-                    new Color(f * this.color.r, f * this.color.g, f * this.color.b));
+                this.texture.setPixel(x, y, new Color(f * this.color.r, f * this.color.g, f * this.color.b));
             }
         }
     }
