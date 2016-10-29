@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(23);
+	var _MyOperator = __webpack_require__(24);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -288,7 +288,7 @@
 	  }
 	});
 	
-	var _SinePlasmaOperator = __webpack_require__(8);
+	var _SinePlasmaOperator = __webpack_require__(9);
 	
 	Object.defineProperty(exports, 'SinePlasmaOperator', {
 	  enumerable: true,
@@ -306,7 +306,7 @@
 	  }
 	});
 	
-	var _ColorizeOperator = __webpack_require__(9);
+	var _ColorizeOperator = __webpack_require__(10);
 	
 	Object.defineProperty(exports, 'ColorizeOperator', {
 	  enumerable: true,
@@ -315,7 +315,7 @@
 	  }
 	});
 	
-	var _DistortOperator = __webpack_require__(10);
+	var _DistortOperator = __webpack_require__(11);
 	
 	Object.defineProperty(exports, 'DistortOperator', {
 	  enumerable: true,
@@ -324,7 +324,7 @@
 	  }
 	});
 	
-	var _PlasmaFractal = __webpack_require__(11);
+	var _PlasmaFractal = __webpack_require__(12);
 	
 	Object.defineProperty(exports, 'PlasmaFractal', {
 	  enumerable: true,
@@ -333,7 +333,7 @@
 	  }
 	});
 	
-	var _Turbolence = __webpack_require__(13);
+	var _Turbolence = __webpack_require__(14);
 	
 	Object.defineProperty(exports, 'Turbolence', {
 	  enumerable: true,
@@ -342,7 +342,7 @@
 	  }
 	});
 	
-	var _Tile = __webpack_require__(14);
+	var _Tile = __webpack_require__(15);
 	
 	Object.defineProperty(exports, 'Tile', {
 	  enumerable: true,
@@ -351,7 +351,7 @@
 	  }
 	});
 	
-	var _AdjustIntensity = __webpack_require__(15);
+	var _AdjustIntensity = __webpack_require__(16);
 	
 	Object.defineProperty(exports, 'AdjustIntensity', {
 	  enumerable: true,
@@ -360,7 +360,7 @@
 	  }
 	});
 	
-	var _AlphaBlend = __webpack_require__(16);
+	var _AlphaBlend = __webpack_require__(17);
 	
 	Object.defineProperty(exports, 'AlphaBlend', {
 	  enumerable: true,
@@ -369,7 +369,7 @@
 	  }
 	});
 	
-	var _Chrome = __webpack_require__(17);
+	var _Chrome = __webpack_require__(18);
 	
 	Object.defineProperty(exports, 'Chrome', {
 	  enumerable: true,
@@ -378,7 +378,7 @@
 	  }
 	});
 	
-	var _AddOperator = __webpack_require__(18);
+	var _AddOperator = __webpack_require__(19);
 	
 	Object.defineProperty(exports, 'AddOperator', {
 	  enumerable: true,
@@ -387,7 +387,7 @@
 	  }
 	});
 	
-	var _LogicalOperator = __webpack_require__(19);
+	var _LogicalOperator = __webpack_require__(20);
 	
 	Object.defineProperty(exports, 'LogicalOperator', {
 	  enumerable: true,
@@ -396,7 +396,7 @@
 	  }
 	});
 	
-	var _WhiteNoise = __webpack_require__(20);
+	var _WhiteNoise = __webpack_require__(21);
 	
 	Object.defineProperty(exports, 'WhiteNoise', {
 	  enumerable: true,
@@ -414,7 +414,7 @@
 	  }
 	});
 	
-	var _CellOperator = __webpack_require__(21);
+	var _CellOperator = __webpack_require__(22);
 	
 	Object.defineProperty(exports, 'CellOperator', {
 	  enumerable: true,
@@ -423,7 +423,7 @@
 	  }
 	});
 	
-	var _Metric = __webpack_require__(22);
+	var _Metric = __webpack_require__(23);
 	
 	Object.defineProperty(exports, 'Metric', {
 	  enumerable: true,
@@ -723,25 +723,9 @@
 	
 	var _OperatorRegistry = __webpack_require__(7);
 	
+	var _InvalidParameterException = __webpack_require__(8);
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var InvalidParameterException = function () {
-	    function InvalidParameterException() {
-	        _classCallCheck(this, InvalidParameterException);
-	
-	        this.name = "InvalidParameterException";
-	        this.message = "Error detected. The number of parents is invalid.";
-	    }
-	
-	    _createClass(InvalidParameterException, [{
-	        key: 'toString',
-	        value: function toString() {
-	            return this.name + ': ' + this.message;
-	        }
-	    }]);
-	
-	    return InvalidParameterException;
-	}();
 	
 	var AbstractOperator = exports.AbstractOperator = function () {
 	
@@ -778,7 +762,7 @@
 	        key: 'evaluate',
 	        value: function evaluate() {
 	            if (!this.isInputAccepted()) {
-	                throw new InvalidParameterException();
+	                throw new _InvalidParameterException.InvalidParameterException();
 	            }
 	
 	            for (var i in this.parents) {
@@ -888,6 +872,38 @@
 
 /***/ },
 /* 8 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var InvalidParameterException = exports.InvalidParameterException = function () {
+	    function InvalidParameterException() {
+	        _classCallCheck(this, InvalidParameterException);
+	
+	        this.name = "InvalidParameterException";
+	        this.message = "Error detected. The number of parents is invalid.";
+	    }
+	
+	    _createClass(InvalidParameterException, [{
+	        key: "toString",
+	        value: function toString() {
+	            return this.name + ": " + this.message;
+	        }
+	    }]);
+
+	    return InvalidParameterException;
+	}();
+
+/***/ },
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -953,7 +969,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1015,7 +1031,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1066,7 +1082,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1082,7 +1098,7 @@
 	
 	var _Color = __webpack_require__(3);
 	
-	var _RandomNumberGenerator = __webpack_require__(12);
+	var _RandomNumberGenerator = __webpack_require__(13);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -1171,7 +1187,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	/**
@@ -1215,7 +1231,7 @@
 	}();
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1295,7 +1311,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1311,7 +1327,7 @@
 	
 	var _Color = __webpack_require__(3);
 	
-	var _RandomNumberGenerator = __webpack_require__(12);
+	var _RandomNumberGenerator = __webpack_require__(13);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -1357,7 +1373,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1409,7 +1425,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1470,7 +1486,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1530,7 +1546,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1579,7 +1595,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1626,7 +1642,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1642,7 +1658,7 @@
 	
 	var _Color = __webpack_require__(3);
 	
-	var _RandomNumberGenerator = __webpack_require__(12);
+	var _RandomNumberGenerator = __webpack_require__(13);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -1685,7 +1701,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1709,9 +1725,9 @@
 	
 	var _Color = __webpack_require__(3);
 	
-	var _RandomNumberGenerator = __webpack_require__(12);
+	var _RandomNumberGenerator = __webpack_require__(13);
 	
-	var _Metric = __webpack_require__(22);
+	var _Metric = __webpack_require__(23);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -1837,7 +1853,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	/**
@@ -1867,7 +1883,7 @@
 	Object.freeze(Metric);
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

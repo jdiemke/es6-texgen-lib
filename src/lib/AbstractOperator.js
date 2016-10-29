@@ -9,18 +9,7 @@
 
 import {Texture} from './Texture.js';
 import {OperatorRegistry} from './OperatorRegistry.js';
-
-class InvalidParameterException {
-    constructor() {
-        this.name = "InvalidParameterException";
-        this.message = "Error detected. The number of parents is invalid.";
-    }
-
-    toString() {
-        return `${this.name}: ${this.message}`;
-    }
-
-}
+import {InvalidParameterException} from './InvalidParameterException.js';
 
 export class AbstractOperator {
 
