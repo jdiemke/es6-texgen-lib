@@ -206,7 +206,7 @@
 	            canvas13.putImageData(op17.getTexture().getImageData());
 	            canvas13.appendToHtmlDom();
 	
-	            console.log(tg.Metric.EUCLIDEAN);
+	            console.log(tg.Metric.EUCLIDEAN.toString());
 	        }
 	    }, {
 	        key: 'logLibraryNameAndVersion',
@@ -1866,19 +1866,49 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Metric = exports.Metric = function Metric() {
-	  _classCallCheck(this, Metric);
-	};
+	var Metric = exports.Metric = function () {
+	    function Metric(id, name) {
+	        _classCallCheck(this, Metric);
 	
-	Metric.EUCLIDEAN = Symbol('EUCLIDEAN');
-	Metric.MANHATTEN = Symbol('MANHATTEN');
-	Metric.QUASI_EUCLIDEAN = Symbol('QUASI_EUCLIDEAN');
-	Metric.CHEBBYSHEV = Symbol('QUASI_EUCLIDEAN');
+	        this.id = id;
+	        this.name = name;
+	        Metric[id] = this;
+	    }
+	
+	    _createClass(Metric, [{
+	        key: 'toString',
+	        value: function toString() {
+	            return 'Metric.' + this.name;
+	        }
+	    }], [{
+	        key: 'isAssignmentCompatible',
+	        value: function isAssignmentCompatible(value) {
+	            return value instanceof Metric;
+	        }
+	    }, {
+	        key: 'getById',
+	        value: function getById(id) {
+	            if (Metric[id]) {
+	                return Metric[id];
+	            }
+	            return null;
+	        }
+	    }]);
+	
+	    return Metric;
+	}();
+	
+	Metric.EUCLIDEAN = new Metric(1, 'EUCLIDEAN');
+	Metric.MANHATTEN = new Metric(2, 'MANHATTEN');
+	Metric.QUASI_EUCLIDEAN = new Metric(3, 'QUASI_EUCLIDEAN');
+	Metric.CHEBBYSHEV = new Metric(4, 'QUASI_EUCLIDEAN');
 	
 	Object.freeze(Metric);
 

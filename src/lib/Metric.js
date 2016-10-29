@@ -7,11 +7,34 @@
 
 'use strict';
 
-export class Metric {}
+export class Metric {
 
-Metric.EUCLIDEAN = Symbol('EUCLIDEAN');
-Metric.MANHATTEN = Symbol('MANHATTEN');
-Metric.QUASI_EUCLIDEAN = Symbol('QUASI_EUCLIDEAN');
-Metric.CHEBBYSHEV = Symbol('QUASI_EUCLIDEAN');
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
+        Metric[id] = this;
+    }
+
+    toString() {
+        return `Metric.${this.name}`;
+    }
+
+    static isAssignmentCompatible(value) {
+        return value instanceof Metric;
+    }
+
+    static getById(id) {
+        if (Metric[id]) {
+            return Metric[id];
+        }
+        return null;
+    }
+
+}
+
+Metric.EUCLIDEAN = new Metric(1, 'EUCLIDEAN');
+Metric.MANHATTEN = new Metric(2, 'MANHATTEN');
+Metric.QUASI_EUCLIDEAN = new Metric(3, 'QUASI_EUCLIDEAN');
+Metric.CHEBBYSHEV = new Metric(4, 'QUASI_EUCLIDEAN');
 
 Object.freeze(Metric);

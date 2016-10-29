@@ -143,7 +143,7 @@ class Application {
         canvas13.putImageData(op17.getTexture().getImageData());
         canvas13.appendToHtmlDom();
 
-        console.log(tg.Metric.EUCLIDEAN);
+        console.log(tg.Metric.EUCLIDEAN.toString());
     }
 
     logLibraryNameAndVersion() {
