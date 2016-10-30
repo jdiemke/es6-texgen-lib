@@ -8,9 +8,7 @@
 
 'use strict';
 
-import {
-    Color
-} from './Color.js';
+import {Color} from './Color.js';
 
 export class Texture {
 
@@ -30,17 +28,15 @@ export class Texture {
     getPixel(x, y) {
         x = (x | 0) % 256;
         y = (y | 0) % 256;
-        return new Color(this.texture[(x + (y * 256)) * 4],
-            this.texture[(x + (y * 256)) * 4 + 1],
-            this.texture[(x + (y * 256)) * 4 + 2],
-            this.texture[(x + (y * 256)) * 4 + 3]);
+        return new Color(this.texture[(x + (y * 256)) * 4], this.texture[(x + (y * 256)) * 4 + 1], this.texture[(x + (y * 256)) * 4 + 2], this.texture[(x + (y * 256)) * 4 + 3]);
     }
 
+    // FIXME: remove operations that are not necessary
     getBilinearFilteredPixel(x, y) {
-        let x0 = (x | 0) % 256;
-        let x1 = ((x + 1) | 0) % 256;
-        let y0 = (y | 0) % 256;
-        let y1 = ((y + 1) | 0) % 256;
+        let x0 = (((x | 0) % 256) + 256) % 256;
+        let x1 = ((((x + 1) | 0) % 256) + 256) % 256;
+        let y0 = (((y | 0) % 256) + 256) % 256;
+        let y1 = ((((y + 1) | 0) % 256) + 256) % 256;
 
         let x0y0 = this.getPixel(x0, y0);
         let x1y0 = this.getPixel(x1, y0);

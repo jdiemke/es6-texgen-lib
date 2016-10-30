@@ -114,6 +114,10 @@ class Application {
         let op20 = new tg.Invert();
         op20.addParent(op19);
         this.displayTexture(op20);
+
+        let op21 = new tg.Ripple();
+        op21.addParent(op20);
+        this.displayTexture(op21);
     }
 
     displayTexture(operator) {

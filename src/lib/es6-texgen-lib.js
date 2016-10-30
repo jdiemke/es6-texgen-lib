@@ -84,3 +84,6 @@ from './Pixelize.js';
 
 export {Invert}
 from './Invert.js';
+
+export {Ripple}
+from './Ripple.js';
