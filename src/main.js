@@ -54,25 +54,13 @@ class Application {
         canvas4.appendToHtmlDom();
 
         let operator5 = new tg.LogicalOperator();
-        operator5.evaluate();
-
-        let canvas5 = new tg.Canvas(256, 256);
-        canvas5.putImageData(operator5.getTexture().getImageData());
-        canvas5.appendToHtmlDom();
+        this.displayTexture(operator5);
 
         let operator6 = new APEX.MyOperator();
-        operator6.evaluate();
-
-        let canvas6 = new tg.Canvas(256, 256);
-        canvas6.putImageData(operator6.getTexture().getImageData());
-        canvas6.appendToHtmlDom();
+        this.displayTexture(operator6);
 
         let operator7 = new tg.CellOperator();
-        operator7.evaluate();
-
-        let canvas7 = new tg.Canvas(256, 256);
-        canvas7.putImageData(operator7.getTexture().getImageData());
-        canvas7.appendToHtmlDom();
+        this.displayTexture(operator7);
 
         let operator8 = new tg.DistortOperator();
         operator8.addParent(operator7);
@@ -86,72 +74,47 @@ class Application {
 
         let op10 = new tg.Tile();
         op10.addParent(operator4);
-        op10.evaluate();
-
         let op11 = new tg.ColorizeOperator();
         op11.addParent(op10);
         op11.setBackgroundColor(new tg.Color(1, 1, 0));
         op11.setForgroundColor(new tg.Color(1, 0, 0));
-        op11.evaluate();
-
-        let canvas10 = new tg.Canvas(256, 256);
-        canvas10.putImageData(op11.getTexture().getImageData());
-        canvas10.appendToHtmlDom();
+        this.displayTexture(op11);
 
         let op12 = new tg.Turbolence();
         operator7.setLinearCombinationType(2);
         op12.addParent(operator7);
-        op12.evaluate();
-
-        let canvas8 = new tg.Canvas(256, 256);
-        canvas8.putImageData(op12.getTexture().getImageData());
-        canvas8.appendToHtmlDom();
+        this.displayTexture(op12);
 
         let op13 = new tg.PlasmaFractal();
-        op13.evaluate();
-
         let op14 = new tg.ColorizeOperator();
         op14.addParent(op13);
-        op14.evaluate();
-
-        let canvas9 = new tg.Canvas(256, 256);
-        canvas9.putImageData(op14.getTexture().getImageData());
-        canvas9.appendToHtmlDom();
+        this.displayTexture(op14);
 
         let op15 = new tg.AdjustIntensity();
         op15.addParent(op14);
-        op15.evaluate();
-
-        let canvas11 = new tg.Canvas(256, 256);
-        canvas11.putImageData(op15.getTexture().getImageData());
-        canvas11.appendToHtmlDom();
+        this.displayTexture(op15);
 
         let op16 = new tg.AlphaBlend();
         op16.addParent(op14);
         op16.addParent(operator7);
-        op16.evaluate();
-
-        let canvas12 = new tg.Canvas(256, 256);
-        canvas12.putImageData(op16.getTexture().getImageData());
-        canvas12.appendToHtmlDom();
+        this.displayTexture(op16);
 
         let op17 = new tg.Chrome();
         op17.addParent(op16);
-        op17.evaluate();
-
-        let canvas13 = new tg.Canvas(256, 256);
-        canvas13.putImageData(op17.getTexture().getImageData());
-        canvas13.appendToHtmlDom();
+        this.displayTexture(op17);
 
         let op18 = new tg.Grayscale();
         op18.addParent(op17);
-        op18.evaluate();
-
         this.displayTexture(op18);
+
+        let op19 = new tg.Pixelize();
+        op19.addParent(op16);
+        this.displayTexture(op19);
     }
 
     displayTexture(operator) {
         let canvas = new tg.Canvas(256, 256);
+        operator.evaluate();
         canvas.putImageData(operator.getTexture().getImageData());
         canvas.appendToHtmlDom();
     }

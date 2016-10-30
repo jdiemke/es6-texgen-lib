@@ -78,3 +78,6 @@ from './Metric.js';
 
 export {Grayscale}
 from './Grayscale.js';
+
+export {Pixelize}
+from './Pixelize.js';
