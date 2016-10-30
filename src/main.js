@@ -143,7 +143,17 @@ class Application {
         canvas13.putImageData(op17.getTexture().getImageData());
         canvas13.appendToHtmlDom();
 
-        console.log(tg.Metric.EUCLIDEAN.toString());
+        let op18 = new tg.Grayscale();
+        op18.addParent(op17);
+        op18.evaluate();
+
+        this.displayTexture(op18);
+    }
+
+    displayTexture(operator) {
+        let canvas = new tg.Canvas(256, 256);
+        canvas.putImageData(operator.getTexture().getImageData());
+        canvas.appendToHtmlDom();
     }
 
     logLibraryNameAndVersion() {

@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(24);
+	var _MyOperator = __webpack_require__(25);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -206,7 +206,18 @@
 	            canvas13.putImageData(op17.getTexture().getImageData());
 	            canvas13.appendToHtmlDom();
 	
-	            console.log(tg.Metric.EUCLIDEAN.toString());
+	            var op18 = new tg.Grayscale();
+	            op18.addParent(op17);
+	            op18.evaluate();
+	
+	            this.displayTexture(op18);
+	        }
+	    }, {
+	        key: 'displayTexture',
+	        value: function displayTexture(operator) {
+	            var canvas = new tg.Canvas(256, 256);
+	            canvas.putImageData(operator.getTexture().getImageData());
+	            canvas.appendToHtmlDom();
 	        }
 	    }, {
 	        key: 'logLibraryNameAndVersion',
@@ -429,6 +440,15 @@
 	  enumerable: true,
 	  get: function get() {
 	    return _Metric.Metric;
+	  }
+	});
+	
+	var _Grayscale = __webpack_require__(24);
+	
+	Object.defineProperty(exports, 'Grayscale', {
+	  enumerable: true,
+	  get: function get() {
+	    return _Grayscale.Grayscale;
 	  }
 	});
 	var distribution = exports.distribution = {
@@ -2000,6 +2020,62 @@
 
 /***/ },
 /* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Grayscale = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Grayscale = exports.Grayscale = function (_AbstractOperator) {
+	    _inherits(Grayscale, _AbstractOperator);
+	
+	    function Grayscale() {
+	        _classCallCheck(this, Grayscale);
+	
+	        return _possibleConstructorReturn(this, (Grayscale.__proto__ || Object.getPrototypeOf(Grayscale)).apply(this, arguments));
+	    }
+	
+	    _createClass(Grayscale, [{
+	        key: 'isInputAccepted',
+	        value: function isInputAccepted() {
+	            return this.parents.length == 1;
+	        }
+	    }, {
+	        key: 'process',
+	        value: function process() {
+	            var source = this.parents[0].texture;
+	
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var weight = new _Color.Color(0.3, 0.59, 0.11);
+	                    var weightedColor = source.getPixel(x, y).multiplyColor(weight);
+	                    var intensity = weightedColor.r + weightedColor.g + weightedColor.b;
+	                    this.texture.setPixel(x, y, new _Color.Color(intensity));
+	                }
+	            }
+	        }
+	    }]);
+
+	    return Grayscale;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

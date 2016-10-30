@@ -75,3 +75,6 @@ from './CellOperator.js';
 
 export {Metric}
 from './Metric.js';
+
+export {Grayscale}
+from './Grayscale.js';
