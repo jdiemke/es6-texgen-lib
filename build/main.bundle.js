@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(25);
+	var _MyOperator = __webpack_require__(26);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -117,25 +117,13 @@
 	            canvas4.appendToHtmlDom();
 	
 	            var operator5 = new tg.LogicalOperator();
-	            operator5.evaluate();
-	
-	            var canvas5 = new tg.Canvas(256, 256);
-	            canvas5.putImageData(operator5.getTexture().getImageData());
-	            canvas5.appendToHtmlDom();
+	            this.displayTexture(operator5);
 	
 	            var operator6 = new APEX.MyOperator();
-	            operator6.evaluate();
-	
-	            var canvas6 = new tg.Canvas(256, 256);
-	            canvas6.putImageData(operator6.getTexture().getImageData());
-	            canvas6.appendToHtmlDom();
+	            this.displayTexture(operator6);
 	
 	            var operator7 = new tg.CellOperator();
-	            operator7.evaluate();
-	
-	            var canvas7 = new tg.Canvas(256, 256);
-	            canvas7.putImageData(operator7.getTexture().getImageData());
-	            canvas7.appendToHtmlDom();
+	            this.displayTexture(operator7);
 	
 	            var operator8 = new tg.DistortOperator();
 	            operator8.addParent(operator7);
@@ -149,73 +137,48 @@
 	
 	            var op10 = new tg.Tile();
 	            op10.addParent(operator4);
-	            op10.evaluate();
-	
 	            var op11 = new tg.ColorizeOperator();
 	            op11.addParent(op10);
 	            op11.setBackgroundColor(new tg.Color(1, 1, 0));
 	            op11.setForgroundColor(new tg.Color(1, 0, 0));
-	            op11.evaluate();
-	
-	            var canvas10 = new tg.Canvas(256, 256);
-	            canvas10.putImageData(op11.getTexture().getImageData());
-	            canvas10.appendToHtmlDom();
+	            this.displayTexture(op11);
 	
 	            var op12 = new tg.Turbolence();
 	            operator7.setLinearCombinationType(2);
 	            op12.addParent(operator7);
-	            op12.evaluate();
-	
-	            var canvas8 = new tg.Canvas(256, 256);
-	            canvas8.putImageData(op12.getTexture().getImageData());
-	            canvas8.appendToHtmlDom();
+	            this.displayTexture(op12);
 	
 	            var op13 = new tg.PlasmaFractal();
-	            op13.evaluate();
-	
 	            var op14 = new tg.ColorizeOperator();
 	            op14.addParent(op13);
-	            op14.evaluate();
-	
-	            var canvas9 = new tg.Canvas(256, 256);
-	            canvas9.putImageData(op14.getTexture().getImageData());
-	            canvas9.appendToHtmlDom();
+	            this.displayTexture(op14);
 	
 	            var op15 = new tg.AdjustIntensity();
 	            op15.addParent(op14);
-	            op15.evaluate();
-	
-	            var canvas11 = new tg.Canvas(256, 256);
-	            canvas11.putImageData(op15.getTexture().getImageData());
-	            canvas11.appendToHtmlDom();
+	            this.displayTexture(op15);
 	
 	            var op16 = new tg.AlphaBlend();
 	            op16.addParent(op14);
 	            op16.addParent(operator7);
-	            op16.evaluate();
-	
-	            var canvas12 = new tg.Canvas(256, 256);
-	            canvas12.putImageData(op16.getTexture().getImageData());
-	            canvas12.appendToHtmlDom();
+	            this.displayTexture(op16);
 	
 	            var op17 = new tg.Chrome();
 	            op17.addParent(op16);
-	            op17.evaluate();
-	
-	            var canvas13 = new tg.Canvas(256, 256);
-	            canvas13.putImageData(op17.getTexture().getImageData());
-	            canvas13.appendToHtmlDom();
+	            this.displayTexture(op17);
 	
 	            var op18 = new tg.Grayscale();
 	            op18.addParent(op17);
-	            op18.evaluate();
-	
 	            this.displayTexture(op18);
+	
+	            var op19 = new tg.Pixelize();
+	            op19.addParent(op16);
+	            this.displayTexture(op19);
 	        }
 	    }, {
 	        key: 'displayTexture',
 	        value: function displayTexture(operator) {
 	            var canvas = new tg.Canvas(256, 256);
+	            operator.evaluate();
 	            canvas.putImageData(operator.getTexture().getImageData());
 	            canvas.appendToHtmlDom();
 	        }
@@ -449,6 +412,15 @@
 	  enumerable: true,
 	  get: function get() {
 	    return _Grayscale.Grayscale;
+	  }
+	});
+	
+	var _Pixelize = __webpack_require__(25);
+	
+	Object.defineProperty(exports, 'Pixelize', {
+	  enumerable: true,
+	  get: function get() {
+	    return _Pixelize.Pixelize;
 	  }
 	});
 	var distribution = exports.distribution = {
@@ -2076,6 +2048,67 @@
 
 /***/ },
 /* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Pixelize = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Pixelize = exports.Pixelize = function (_AbstractOperator) {
+	    _inherits(Pixelize, _AbstractOperator);
+	
+	    function Pixelize() {
+	        _classCallCheck(this, Pixelize);
+	
+	        var _this = _possibleConstructorReturn(this, (Pixelize.__proto__ || Object.getPrototypeOf(Pixelize)).call(this));
+	
+	        _this.scale = 3;
+	        return _this;
+	    }
+	
+	    _createClass(Pixelize, [{
+	        key: 'isInputAccepted',
+	        value: function isInputAccepted() {
+	            return this.parents.length == 1;
+	        }
+	    }, {
+	        key: 'process',
+	        value: function process() {
+	            var source = this.parents[0].texture;
+	
+	            var scale = Math.pow(2, this.scale);
+	
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var u = Math.floor(x / scale) * scale + scale / 2;
+	                    var v = Math.floor(y / scale) * scale + scale / 2;
+	                    var color = source.getPixel(u, v);
+	                    this.texture.setPixel(x, y, color);
+	                }
+	            }
+	        }
+	    }]);
+
+	    return Pixelize;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
