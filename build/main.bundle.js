@@ -1765,10 +1765,17 @@
 	                for (var x = 0; x < 256; x++) {
 	                    var dist = this.distToNearestPoint(x, y, this.points, this.quantity, this.linearcombination, this.metric);
 	                    this.distBuffer[x + y * 256] = dist;
-	                    if (dist < mindist) mindist = dist;
-	                    if (dist > maxdist) maxdist = dist;
+	
+	                    if (dist < mindist) {
+	                        mindist = dist;
+	                    }
+	
+	                    if (dist > maxdist) {
+	                        maxdist = dist;
+	                    }
 	                }
 	            }
+	
 	            for (var y = 0; y < 256; y++) {
 	                for (var x = 0; x < 256; x++) {
 	                    var value = (this.distBuffer[x + y * 256] - mindist) / (maxdist - mindist);
@@ -1810,21 +1817,16 @@
 	        value: function wrapDist(x, y, px, py, metric) {
 	            var dx = Math.abs(x - px);
 	            var dy = Math.abs(y - py);
-	            if (dx > 256 / 2) dx = 256 - dx;
-	            if (dy > 256 / 2) dy = 256 - dy;
 	
-	            switch (metric) {
-	                case _Metric.Metric.EUCLIDEAN:
-	                    return Math.sqrt(dx * dx + dy * dy);
-	                case _Metric.Metric.MANHATTEN:
-	                    return dx + dy;
-	                case _Metric.Metric.QUASI_EUCLIDEAN:
-	                    return Math.sqrt(dx * dx + dy * dy);
-	                case _Metric.Metric.CHEBBYSHEV:
-	                    return Math.sqrt(dx * dx + dy * dy);
-	                default:
-	                    return Math.sqrt(dx * dx + dy * dy);
+	            if (dx > 256 / 2) {
+	                dx = 256 - dx;
 	            }
+	
+	            if (dy > 256 / 2) {
+	                dy = 256 - dy;
+	            }
+	
+	            return metric.computeDistance(dx, dy);
 	        }
 	    }, {
 	        key: 'uniformRandom',
@@ -1871,6 +1873,10 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var Metric = exports.Metric = function () {
@@ -1905,7 +1911,26 @@
 	    return Metric;
 	}();
 	
-	Metric.EUCLIDEAN = new Metric(1, 'EUCLIDEAN');
+	var EuclideanMetric = function (_Metric) {
+	    _inherits(EuclideanMetric, _Metric);
+	
+	    function EuclideanMetric() {
+	        _classCallCheck(this, EuclideanMetric);
+	
+	        return _possibleConstructorReturn(this, (EuclideanMetric.__proto__ || Object.getPrototypeOf(EuclideanMetric)).call(this, 1, 'EUCLIDEAN'));
+	    }
+	
+	    _createClass(EuclideanMetric, [{
+	        key: 'computeDistance',
+	        value: function computeDistance(dx, dy) {
+	            return Math.sqrt(dx * dx + dy * dy);
+	        }
+	    }]);
+	
+	    return EuclideanMetric;
+	}(Metric);
+	
+	Metric.EUCLIDEAN = new EuclideanMetric();
 	Metric.MANHATTEN = new Metric(2, 'MANHATTEN');
 	Metric.QUASI_EUCLIDEAN = new Metric(3, 'QUASI_EUCLIDEAN');
 	Metric.CHEBBYSHEV = new Metric(4, 'QUASI_EUCLIDEAN');

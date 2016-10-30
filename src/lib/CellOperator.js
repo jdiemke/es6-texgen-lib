@@ -36,12 +36,17 @@ export class CellOperator extends AbstractOperator {
             for (var x = 0; x < 256; x++) {
                 var dist = this.distToNearestPoint(x, y, this.points, this.quantity, this.linearcombination, this.metric);
                 this.distBuffer[(x + (y * 256))] = dist;
-                if (dist < mindist)
+
+                if (dist < mindist) {
                     mindist = dist;
-                if (dist > maxdist)
+                }
+
+                if (dist > maxdist) {
                     maxdist = dist;
                 }
             }
+        }
+
         for (var y = 0; y < 256; y++) {
             for (var x = 0; x < 256; x++) {
                 var value = (this.distBuffer[(x + (y * 256))] - mindist) / (maxdist - mindist);
@@ -79,25 +84,18 @@ export class CellOperator extends AbstractOperator {
     }
 
     wrapDist(x, y, px, py, metric) {
-        var dx = Math.abs(x - px);
-        var dy = Math.abs(y - py);
-        if (dx > 256 / 2)
-            dx = 256 - dx;
-        if (dy > 256 / 2)
-            dy = 256 - dy;
+        let dx = Math.abs(x - px);
+        let dy = Math.abs(y - py);
 
-        switch (metric) {
-            case Metric.EUCLIDEAN:
-                return Math.sqrt(dx * dx + dy * dy);
-            case Metric.MANHATTEN:
-                return (dx + dy);
-            case Metric.QUASI_EUCLIDEAN:
-                return Math.sqrt(dx * dx + dy * dy);
-            case Metric.CHEBBYSHEV:
-                return Math.sqrt(dx * dx + dy * dy);
-            default:
-                return Math.sqrt(dx * dx + dy * dy);
+        if (dx > 256 / 2) {
+            dx = 256 - dx;
         }
+
+        if (dy > 256 / 2) {
+            dy = 256 - dy;
+        }
+
+        return metric.computeDistance(dx, dy);
     }
 
     uniformRandom() {

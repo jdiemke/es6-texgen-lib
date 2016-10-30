@@ -32,7 +32,19 @@ export class Metric {
 
 }
 
-Metric.EUCLIDEAN = new Metric(1, 'EUCLIDEAN');
+class EuclideanMetric extends Metric {
+
+    constructor() {
+        super(1, 'EUCLIDEAN');
+    }
+
+    computeDistance(dx, dy) {
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+}
+
+Metric.EUCLIDEAN = new EuclideanMetric();
 Metric.MANHATTEN = new Metric(2, 'MANHATTEN');
 Metric.QUASI_EUCLIDEAN = new Metric(3, 'QUASI_EUCLIDEAN');
 Metric.CHEBBYSHEV = new Metric(4, 'QUASI_EUCLIDEAN');
