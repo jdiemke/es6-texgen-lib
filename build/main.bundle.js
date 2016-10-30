@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(22);
+	var _MyOperator = __webpack_require__(25);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -205,6 +205,19 @@
 	            var canvas13 = new tg.Canvas(256, 256);
 	            canvas13.putImageData(op17.getTexture().getImageData());
 	            canvas13.appendToHtmlDom();
+	
+	            var op18 = new tg.Grayscale();
+	            op18.addParent(op17);
+	            op18.evaluate();
+	
+	            this.displayTexture(op18);
+	        }
+	    }, {
+	        key: 'displayTexture',
+	        value: function displayTexture(operator) {
+	            var canvas = new tg.Canvas(256, 256);
+	            canvas.putImageData(operator.getTexture().getImageData());
+	            canvas.appendToHtmlDom();
 	        }
 	    }, {
 	        key: 'logLibraryNameAndVersion',
@@ -247,183 +260,201 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _Texture = __webpack_require__(2);
 	
 	Object.defineProperty(exports, 'Texture', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Texture.Texture;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Texture.Texture;
+	  }
 	});
 	
 	var _Canvas = __webpack_require__(4);
 	
 	Object.defineProperty(exports, 'Canvas', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Canvas.Canvas;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Canvas.Canvas;
+	  }
 	});
 	
 	var _FillOperator = __webpack_require__(5);
 	
 	Object.defineProperty(exports, 'FillOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _FillOperator.FillOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _FillOperator.FillOperator;
+	  }
 	});
 	
 	var _Color = __webpack_require__(3);
 	
 	Object.defineProperty(exports, 'Color', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Color.Color;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Color.Color;
+	  }
 	});
 	
-	var _SinePlasmaOperator = __webpack_require__(8);
+	var _SinePlasmaOperator = __webpack_require__(9);
 	
 	Object.defineProperty(exports, 'SinePlasmaOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _SinePlasmaOperator.SinePlasmaOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _SinePlasmaOperator.SinePlasmaOperator;
+	  }
 	});
 	
 	var _OperatorRegistry = __webpack_require__(7);
 	
 	Object.defineProperty(exports, 'OperatorRegistry', {
-	    enumerable: true,
-	    get: function get() {
-	        return _OperatorRegistry.OperatorRegistry;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _OperatorRegistry.OperatorRegistry;
+	  }
 	});
 	
-	var _ColorizeOperator = __webpack_require__(9);
+	var _ColorizeOperator = __webpack_require__(10);
 	
 	Object.defineProperty(exports, 'ColorizeOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _ColorizeOperator.ColorizeOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _ColorizeOperator.ColorizeOperator;
+	  }
 	});
 	
-	var _DistortOperator = __webpack_require__(10);
+	var _DistortOperator = __webpack_require__(11);
 	
 	Object.defineProperty(exports, 'DistortOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _DistortOperator.DistortOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _DistortOperator.DistortOperator;
+	  }
 	});
 	
-	var _PlasmaFractal = __webpack_require__(11);
+	var _PlasmaFractal = __webpack_require__(12);
 	
 	Object.defineProperty(exports, 'PlasmaFractal', {
-	    enumerable: true,
-	    get: function get() {
-	        return _PlasmaFractal.PlasmaFractal;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _PlasmaFractal.PlasmaFractal;
+	  }
 	});
 	
-	var _Turbolence = __webpack_require__(13);
+	var _Turbolence = __webpack_require__(14);
 	
 	Object.defineProperty(exports, 'Turbolence', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Turbolence.Turbolence;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Turbolence.Turbolence;
+	  }
 	});
 	
-	var _Tile = __webpack_require__(14);
+	var _Tile = __webpack_require__(15);
 	
 	Object.defineProperty(exports, 'Tile', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Tile.Tile;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Tile.Tile;
+	  }
 	});
 	
-	var _AdjustIntensity = __webpack_require__(15);
+	var _AdjustIntensity = __webpack_require__(16);
 	
 	Object.defineProperty(exports, 'AdjustIntensity', {
-	    enumerable: true,
-	    get: function get() {
-	        return _AdjustIntensity.AdjustIntensity;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _AdjustIntensity.AdjustIntensity;
+	  }
 	});
 	
-	var _AlphaBlend = __webpack_require__(16);
+	var _AlphaBlend = __webpack_require__(17);
 	
 	Object.defineProperty(exports, 'AlphaBlend', {
-	    enumerable: true,
-	    get: function get() {
-	        return _AlphaBlend.AlphaBlend;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _AlphaBlend.AlphaBlend;
+	  }
 	});
 	
-	var _Chrome = __webpack_require__(17);
+	var _Chrome = __webpack_require__(18);
 	
 	Object.defineProperty(exports, 'Chrome', {
-	    enumerable: true,
-	    get: function get() {
-	        return _Chrome.Chrome;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _Chrome.Chrome;
+	  }
 	});
 	
-	var _AddOperator = __webpack_require__(18);
+	var _AddOperator = __webpack_require__(19);
 	
 	Object.defineProperty(exports, 'AddOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _AddOperator.AddOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _AddOperator.AddOperator;
+	  }
 	});
 	
-	var _LogicalOperator = __webpack_require__(19);
+	var _LogicalOperator = __webpack_require__(20);
 	
 	Object.defineProperty(exports, 'LogicalOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _LogicalOperator.LogicalOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _LogicalOperator.LogicalOperator;
+	  }
 	});
 	
-	var _WhiteNoise = __webpack_require__(20);
+	var _WhiteNoise = __webpack_require__(21);
 	
 	Object.defineProperty(exports, 'WhiteNoise', {
-	    enumerable: true,
-	    get: function get() {
-	        return _WhiteNoise.WhiteNoise;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _WhiteNoise.WhiteNoise;
+	  }
 	});
 	
 	var _AbstractOperator = __webpack_require__(6);
 	
 	Object.defineProperty(exports, 'AbstractOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _AbstractOperator.AbstractOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _AbstractOperator.AbstractOperator;
+	  }
 	});
 	
-	var _CellOperator = __webpack_require__(21);
+	var _CellOperator = __webpack_require__(22);
 	
 	Object.defineProperty(exports, 'CellOperator', {
-	    enumerable: true,
-	    get: function get() {
-	        return _CellOperator.CellOperator;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _CellOperator.CellOperator;
+	  }
+	});
+	
+	var _Metric = __webpack_require__(23);
+	
+	Object.defineProperty(exports, 'Metric', {
+	  enumerable: true,
+	  get: function get() {
+	    return _Metric.Metric;
+	  }
+	});
+	
+	var _Grayscale = __webpack_require__(24);
+	
+	Object.defineProperty(exports, 'Grayscale', {
+	  enumerable: true,
+	  get: function get() {
+	    return _Grayscale.Grayscale;
+	  }
 	});
 	var distribution = exports.distribution = {
-	    baseName: 'es6-texgen-lib',
-	    version: '0.1.1',
-	    fullName: 'es6-texgen-lib-v0.1.1'
+	  baseName: 'es6-texgen-lib',
+	  version: '0.1.1',
+	  fullName: 'es6-texgen-lib-v0.1.1'
 	};
 
 /***/ },
@@ -712,25 +743,9 @@
 	
 	var _OperatorRegistry = __webpack_require__(7);
 	
+	var _InvalidParameterException = __webpack_require__(8);
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var InvalidParameterException = function () {
-	    function InvalidParameterException() {
-	        _classCallCheck(this, InvalidParameterException);
-	
-	        this.name = "InvalidParameterException";
-	        this.message = "Error detected. The number of parents is invalid.";
-	    }
-	
-	    _createClass(InvalidParameterException, [{
-	        key: 'toString',
-	        value: function toString() {
-	            return this.name + ': ' + this.message;
-	        }
-	    }]);
-	
-	    return InvalidParameterException;
-	}();
 	
 	var AbstractOperator = exports.AbstractOperator = function () {
 	
@@ -767,7 +782,7 @@
 	        key: 'evaluate',
 	        value: function evaluate() {
 	            if (!this.isInputAccepted()) {
-	                throw new InvalidParameterException();
+	                throw new _InvalidParameterException.InvalidParameterException();
 	            }
 	
 	            for (var i in this.parents) {
@@ -877,6 +892,38 @@
 
 /***/ },
 /* 8 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var InvalidParameterException = exports.InvalidParameterException = function () {
+	    function InvalidParameterException() {
+	        _classCallCheck(this, InvalidParameterException);
+	
+	        this.name = "InvalidParameterException";
+	        this.message = "Error detected. The number of parents is invalid.";
+	    }
+	
+	    _createClass(InvalidParameterException, [{
+	        key: "toString",
+	        value: function toString() {
+	            return this.name + ": " + this.message;
+	        }
+	    }]);
+
+	    return InvalidParameterException;
+	}();
+
+/***/ },
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -942,7 +989,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1004,7 +1051,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1055,7 +1102,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1071,7 +1118,7 @@
 	
 	var _Color = __webpack_require__(3);
 	
-	var _RandomNumberGenerator = __webpack_require__(12);
+	var _RandomNumberGenerator = __webpack_require__(13);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -1160,7 +1207,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
 	/**
@@ -1204,7 +1251,7 @@
 	}();
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1284,7 +1331,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1300,7 +1347,7 @@
 	
 	var _Color = __webpack_require__(3);
 	
-	var _RandomNumberGenerator = __webpack_require__(12);
+	var _RandomNumberGenerator = __webpack_require__(13);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -1346,7 +1393,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1398,7 +1445,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1459,7 +1506,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1519,7 +1566,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1568,7 +1615,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1615,7 +1662,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1631,7 +1678,7 @@
 	
 	var _Color = __webpack_require__(3);
 	
-	var _RandomNumberGenerator = __webpack_require__(12);
+	var _RandomNumberGenerator = __webpack_require__(13);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -1674,7 +1721,7 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -1698,7 +1745,9 @@
 	
 	var _Color = __webpack_require__(3);
 	
-	var _RandomNumberGenerator = __webpack_require__(12);
+	var _RandomNumberGenerator = __webpack_require__(13);
+	
+	var _Metric = __webpack_require__(23);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -1719,7 +1768,7 @@
 	        _this.distributiontype = 0;
 	        _this.minimumdistance = 2;
 	        _this.linearcombination = 2;
-	        _this.metric = 0;
+	        _this.metric = _Metric.Metric.EUCLIDEAN;
 	        _this.mosaic = false;
 	        return _this;
 	    }
@@ -1736,10 +1785,17 @@
 	                for (var x = 0; x < 256; x++) {
 	                    var dist = this.distToNearestPoint(x, y, this.points, this.quantity, this.linearcombination, this.metric);
 	                    this.distBuffer[x + y * 256] = dist;
-	                    if (dist < mindist) mindist = dist;
-	                    if (dist > maxdist) maxdist = dist;
+	
+	                    if (dist < mindist) {
+	                        mindist = dist;
+	                    }
+	
+	                    if (dist > maxdist) {
+	                        maxdist = dist;
+	                    }
 	                }
 	            }
+	
 	            for (var y = 0; y < 256; y++) {
 	                for (var x = 0; x < 256; x++) {
 	                    var value = (this.distBuffer[x + y * 256] - mindist) / (maxdist - mindist);
@@ -1781,11 +1837,16 @@
 	        value: function wrapDist(x, y, px, py, metric) {
 	            var dx = Math.abs(x - px);
 	            var dy = Math.abs(y - py);
-	            if (dx > 256 / 2) dx = 256 - dx;
-	            if (dy > 256 / 2) dy = 256 - dy;
 	
-	            // TODO: different metrics here
-	            return Math.sqrt(dx * dx + dy * dy);
+	            if (dx > 256 / 2) {
+	                dx = 256 - dx;
+	            }
+	
+	            if (dy > 256 / 2) {
+	                dy = 256 - dy;
+	            }
+	
+	            return metric.computeDistance(dx, dy);
 	        }
 	    }, {
 	        key: 'uniformRandom',
@@ -1814,7 +1875,207 @@
 	}(_AbstractOperator2.AbstractOperator);
 
 /***/ },
-/* 22 */
+/* 23 */
+/***/ function(module, exports) {
+
+	/**
+	 * The Metric class simulates an enum that defines different metric types.
+	 *
+	 * @author jdiemke <johannes.diemke@eventim.de>
+	 * @since 2016-10-29
+	 */
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Metric = exports.Metric = function () {
+	    function Metric(id, name) {
+	        _classCallCheck(this, Metric);
+	
+	        this.id = id;
+	        this.name = name;
+	        Metric[id] = this;
+	    }
+	
+	    _createClass(Metric, [{
+	        key: 'toString',
+	        value: function toString() {
+	            return 'Metric.' + this.name;
+	        }
+	    }], [{
+	        key: 'isAssignmentCompatible',
+	        value: function isAssignmentCompatible(value) {
+	            return value instanceof Metric;
+	        }
+	    }, {
+	        key: 'getById',
+	        value: function getById(id) {
+	            if (Metric[id]) {
+	                return Metric[id];
+	            }
+	            return null;
+	        }
+	    }]);
+	
+	    return Metric;
+	}();
+	
+	var EuclideanMetric = function (_Metric) {
+	    _inherits(EuclideanMetric, _Metric);
+	
+	    function EuclideanMetric() {
+	        _classCallCheck(this, EuclideanMetric);
+	
+	        return _possibleConstructorReturn(this, (EuclideanMetric.__proto__ || Object.getPrototypeOf(EuclideanMetric)).apply(this, arguments));
+	    }
+	
+	    _createClass(EuclideanMetric, [{
+	        key: 'computeDistance',
+	        value: function computeDistance(dx, dy) {
+	            return Math.sqrt(dx * dx + dy * dy);
+	        }
+	    }]);
+	
+	    return EuclideanMetric;
+	}(Metric);
+	
+	var Manhattan = function (_Metric2) {
+	    _inherits(Manhattan, _Metric2);
+	
+	    function Manhattan() {
+	        _classCallCheck(this, Manhattan);
+	
+	        return _possibleConstructorReturn(this, (Manhattan.__proto__ || Object.getPrototypeOf(Manhattan)).apply(this, arguments));
+	    }
+	
+	    _createClass(Manhattan, [{
+	        key: 'computeDistance',
+	        value: function computeDistance(dx, dy) {
+	            return dx + dy;
+	        }
+	    }]);
+	
+	    return Manhattan;
+	}(Metric);
+	
+	var QuasiEuclidean = function (_Metric3) {
+	    _inherits(QuasiEuclidean, _Metric3);
+	
+	    function QuasiEuclidean() {
+	        _classCallCheck(this, QuasiEuclidean);
+	
+	        return _possibleConstructorReturn(this, (QuasiEuclidean.__proto__ || Object.getPrototypeOf(QuasiEuclidean)).apply(this, arguments));
+	    }
+	
+	    _createClass(QuasiEuclidean, [{
+	        key: 'computeDistance',
+	        value: function computeDistance(dx, dy) {
+	            if (dx > dy) {
+	                return dx + (Math.sqrt(2) - 1) * dy;
+	            } else {
+	                return (Math.sqrt(2) - 1) * dx + dy;
+	            }
+	        }
+	    }]);
+	
+	    return QuasiEuclidean;
+	}(Metric);
+	
+	var Chebbyshev = function (_Metric4) {
+	    _inherits(Chebbyshev, _Metric4);
+	
+	    function Chebbyshev() {
+	        _classCallCheck(this, Chebbyshev);
+	
+	        return _possibleConstructorReturn(this, (Chebbyshev.__proto__ || Object.getPrototypeOf(Chebbyshev)).apply(this, arguments));
+	    }
+	
+	    _createClass(Chebbyshev, [{
+	        key: 'computeDistance',
+	        value: function computeDistance(dx, dy) {
+	            return Math.max(dx, dy);
+	        }
+	    }]);
+	
+	    return Chebbyshev;
+	}(Metric);
+	
+	Metric.EUCLIDEAN = new EuclideanMetric(1, 'EUCLIDEAN');
+	Metric.MANHATTEN = new Manhattan(2, 'MANHATTEN');
+	Metric.QUASI_EUCLIDEAN = new QuasiEuclidean(3, 'QUASI_EUCLIDEAN');
+	Metric.CHEBBYSHEV = new Chebbyshev(4, 'QUASI_EUCLIDEAN');
+	
+	Object.freeze(Metric);
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Grayscale = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Grayscale = exports.Grayscale = function (_AbstractOperator) {
+	    _inherits(Grayscale, _AbstractOperator);
+	
+	    function Grayscale() {
+	        _classCallCheck(this, Grayscale);
+	
+	        return _possibleConstructorReturn(this, (Grayscale.__proto__ || Object.getPrototypeOf(Grayscale)).apply(this, arguments));
+	    }
+	
+	    _createClass(Grayscale, [{
+	        key: 'isInputAccepted',
+	        value: function isInputAccepted() {
+	            return this.parents.length == 1;
+	        }
+	    }, {
+	        key: 'process',
+	        value: function process() {
+	            var source = this.parents[0].texture;
+	
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var weight = new _Color.Color(0.3, 0.59, 0.11);
+	                    var weightedColor = source.getPixel(x, y).multiplyColor(weight);
+	                    var intensity = weightedColor.r + weightedColor.g + weightedColor.b;
+	                    this.texture.setPixel(x, y, new _Color.Color(intensity));
+	                }
+	            }
+	        }
+	    }]);
+
+	    return Grayscale;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
