@@ -32,4 +32,8 @@ export class Color {
         return new Color(this.r - color.r, this.g - color.g, this.b - color.b);
     }
 
+    invert() {
+        return new Color(1 - this.r, 1 - this.g, 1 - this.b)
+    }
+
 }

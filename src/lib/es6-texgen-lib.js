@@ -81,3 +81,6 @@ from './Grayscale.js';
 
 export {Pixelize}
 from './Pixelize.js';
+
+export {Invert}
+from './Invert.js';

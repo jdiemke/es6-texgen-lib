@@ -110,6 +110,10 @@ class Application {
         let op19 = new tg.Pixelize();
         op19.addParent(op16);
         this.displayTexture(op19);
+
+        let op20 = new tg.Invert();
+        op20.addParent(op19);
+        this.displayTexture(op20);
     }
 
     displayTexture(operator) {
