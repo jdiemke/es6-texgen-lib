@@ -1917,7 +1917,7 @@
 	    function EuclideanMetric() {
 	        _classCallCheck(this, EuclideanMetric);
 	
-	        return _possibleConstructorReturn(this, (EuclideanMetric.__proto__ || Object.getPrototypeOf(EuclideanMetric)).call(this, 1, 'EUCLIDEAN'));
+	        return _possibleConstructorReturn(this, (EuclideanMetric.__proto__ || Object.getPrototypeOf(EuclideanMetric)).apply(this, arguments));
 	    }
 	
 	    _createClass(EuclideanMetric, [{
@@ -1930,10 +1930,71 @@
 	    return EuclideanMetric;
 	}(Metric);
 	
-	Metric.EUCLIDEAN = new EuclideanMetric();
-	Metric.MANHATTEN = new Metric(2, 'MANHATTEN');
-	Metric.QUASI_EUCLIDEAN = new Metric(3, 'QUASI_EUCLIDEAN');
-	Metric.CHEBBYSHEV = new Metric(4, 'QUASI_EUCLIDEAN');
+	var Manhattan = function (_Metric2) {
+	    _inherits(Manhattan, _Metric2);
+	
+	    function Manhattan() {
+	        _classCallCheck(this, Manhattan);
+	
+	        return _possibleConstructorReturn(this, (Manhattan.__proto__ || Object.getPrototypeOf(Manhattan)).apply(this, arguments));
+	    }
+	
+	    _createClass(Manhattan, [{
+	        key: 'computeDistance',
+	        value: function computeDistance(dx, dy) {
+	            return dx + dy;
+	        }
+	    }]);
+	
+	    return Manhattan;
+	}(Metric);
+	
+	var QuasiEuclidean = function (_Metric3) {
+	    _inherits(QuasiEuclidean, _Metric3);
+	
+	    function QuasiEuclidean() {
+	        _classCallCheck(this, QuasiEuclidean);
+	
+	        return _possibleConstructorReturn(this, (QuasiEuclidean.__proto__ || Object.getPrototypeOf(QuasiEuclidean)).apply(this, arguments));
+	    }
+	
+	    _createClass(QuasiEuclidean, [{
+	        key: 'computeDistance',
+	        value: function computeDistance(dx, dy) {
+	            if (dx > dy) {
+	                return dx + (Math.sqrt(2) - 1) * dy;
+	            } else {
+	                return (Math.sqrt(2) - 1) * dx + dy;
+	            }
+	        }
+	    }]);
+	
+	    return QuasiEuclidean;
+	}(Metric);
+	
+	var Chebbyshev = function (_Metric4) {
+	    _inherits(Chebbyshev, _Metric4);
+	
+	    function Chebbyshev() {
+	        _classCallCheck(this, Chebbyshev);
+	
+	        return _possibleConstructorReturn(this, (Chebbyshev.__proto__ || Object.getPrototypeOf(Chebbyshev)).apply(this, arguments));
+	    }
+	
+	    _createClass(Chebbyshev, [{
+	        key: 'computeDistance',
+	        value: function computeDistance(dx, dy) {
+	            return Math.max(dx, dy);
+	        }
+	    }]);
+	
+	    return Chebbyshev;
+	}(Metric);
+	
+	Metric.EUCLIDEAN = new EuclideanMetric(1, 'EUCLIDEAN');
+	Metric.MANHATTEN = new Manhattan(2, 'MANHATTEN');
+	Metric.QUASI_EUCLIDEAN = new QuasiEuclidean(3, 'QUASI_EUCLIDEAN');
+	Metric.CHEBBYSHEV = new Chebbyshev(4, 'QUASI_EUCLIDEAN');
 	
 	Object.freeze(Metric);
 

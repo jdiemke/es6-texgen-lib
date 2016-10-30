@@ -34,19 +34,43 @@ export class Metric {
 
 class EuclideanMetric extends Metric {
 
-    constructor() {
-        super(1, 'EUCLIDEAN');
-    }
-
     computeDistance(dx, dy) {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
 }
 
-Metric.EUCLIDEAN = new EuclideanMetric();
-Metric.MANHATTEN = new Metric(2, 'MANHATTEN');
-Metric.QUASI_EUCLIDEAN = new Metric(3, 'QUASI_EUCLIDEAN');
-Metric.CHEBBYSHEV = new Metric(4, 'QUASI_EUCLIDEAN');
+class Manhattan extends Metric {
+
+    computeDistance(dx, dy) {
+        return dx + dy;
+    }
+
+}
+
+class QuasiEuclidean extends Metric {
+
+    computeDistance(dx, dy) {
+        if (dx > dy) {
+            return dx + (Math.sqrt(2) - 1) * dy;
+        } else {
+            return (Math.sqrt(2) - 1) * dx + dy;
+        }
+    }
+
+}
+
+class Chebbyshev extends Metric {
+
+    computeDistance(dx, dy) {
+        return Math.max(dx, dy);
+    }
+
+}
+
+Metric.EUCLIDEAN = new EuclideanMetric(1, 'EUCLIDEAN');
+Metric.MANHATTEN = new Manhattan(2, 'MANHATTEN');
+Metric.QUASI_EUCLIDEAN = new QuasiEuclidean(3, 'QUASI_EUCLIDEAN');
+Metric.CHEBBYSHEV = new Chebbyshev(4, 'QUASI_EUCLIDEAN');
 
 Object.freeze(Metric);
