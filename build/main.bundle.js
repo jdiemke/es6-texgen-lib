@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(27);
+	var _MyOperator = __webpack_require__(28);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -177,6 +177,10 @@
 	            var op20 = new tg.Invert();
 	            op20.addParent(op19);
 	            this.displayTexture(op20);
+	
+	            var op21 = new tg.Ripple();
+	            op21.addParent(op20);
+	            this.displayTexture(op21);
 	        }
 	    }, {
 	        key: 'displayTexture',
@@ -436,6 +440,15 @@
 	    return _Invert.Invert;
 	  }
 	});
+	
+	var _Ripple = __webpack_require__(27);
+	
+	Object.defineProperty(exports, 'Ripple', {
+	  enumerable: true,
+	  get: function get() {
+	    return _Ripple.Ripple;
+	  }
+	});
 	var distribution = exports.distribution = {
 	  baseName: 'es6-texgen-lib',
 	  version: '0.1.1',
@@ -491,13 +504,16 @@
 	            y = (y | 0) % 256;
 	            return new _Color.Color(this.texture[(x + y * 256) * 4], this.texture[(x + y * 256) * 4 + 1], this.texture[(x + y * 256) * 4 + 2], this.texture[(x + y * 256) * 4 + 3]);
 	        }
+	
+	        // FIXME: remove operations that are not necessary
+	
 	    }, {
 	        key: 'getBilinearFilteredPixel',
 	        value: function getBilinearFilteredPixel(x, y) {
-	            var x0 = (x | 0) % 256;
-	            var x1 = (x + 1 | 0) % 256;
-	            var y0 = (y | 0) % 256;
-	            var y1 = (y + 1 | 0) % 256;
+	            var x0 = ((x | 0) % 256 + 256) % 256;
+	            var x1 = ((x + 1 | 0) % 256 + 256) % 256;
+	            var y0 = ((y | 0) % 256 + 256) % 256;
+	            var y1 = ((y + 1 | 0) % 256 + 256) % 256;
 	
 	            var x0y0 = this.getPixel(x0, y0);
 	            var x1y0 = this.getPixel(x1, y0);
@@ -2181,6 +2197,72 @@
 
 /***/ },
 /* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Ripple = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Ripple = exports.Ripple = function (_AbstractOperator) {
+	    _inherits(Ripple, _AbstractOperator);
+	
+	    function Ripple() {
+	        _classCallCheck(this, Ripple);
+	
+	        var _this = _possibleConstructorReturn(this, (Ripple.__proto__ || Object.getPrototypeOf(Ripple)).call(this));
+	
+	        _this.periods = {
+	            x: 1,
+	            y: 1
+	        };
+	        _this.amplitude = {
+	            x: 64,
+	            y: 64
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Ripple, [{
+	        key: 'isInputAccepted',
+	        value: function isInputAccepted() {
+	            return this.parents.length == 1;
+	        }
+	    }, {
+	        key: 'process',
+	        value: function process() {
+	            var source = this.parents[0].texture;
+	
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var u = x + this.amplitude.x * Math.sin(2 * Math.PI * y / 256 * this.periods.x);
+	                    var v = y + this.amplitude.y * Math.sin(2 * Math.PI * x / 256 * this.periods.y);
+	                    var color = source.getBilinearFilteredPixel(u, v);
+	                    this.texture.setPixel(x, y, color);
+	                }
+	            }
+	        }
+	    }]);
+
+	    return Ripple;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
