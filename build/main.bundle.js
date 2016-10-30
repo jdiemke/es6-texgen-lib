@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(26);
+	var _MyOperator = __webpack_require__(27);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -173,6 +173,10 @@
 	            var op19 = new tg.Pixelize();
 	            op19.addParent(op16);
 	            this.displayTexture(op19);
+	
+	            var op20 = new tg.Invert();
+	            op20.addParent(op19);
+	            this.displayTexture(op20);
 	        }
 	    }, {
 	        key: 'displayTexture',
@@ -423,6 +427,15 @@
 	    return _Pixelize.Pixelize;
 	  }
 	});
+	
+	var _Invert = __webpack_require__(26);
+	
+	Object.defineProperty(exports, 'Invert', {
+	  enumerable: true,
+	  get: function get() {
+	    return _Invert.Invert;
+	  }
+	});
 	var distribution = exports.distribution = {
 	  baseName: 'es6-texgen-lib',
 	  version: '0.1.1',
@@ -577,6 +590,11 @@
 	        key: 'substract',
 	        value: function substract(color) {
 	            return new Color(this.r - color.r, this.g - color.g, this.b - color.b);
+	        }
+	    }, {
+	        key: 'invert',
+	        value: function invert() {
+	            return new Color(1 - this.r, 1 - this.g, 1 - this.b);
 	        }
 	    }]);
 
@@ -2109,6 +2127,60 @@
 
 /***/ },
 /* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Invert = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Invert = exports.Invert = function (_AbstractOperator) {
+	    _inherits(Invert, _AbstractOperator);
+	
+	    function Invert() {
+	        _classCallCheck(this, Invert);
+	
+	        return _possibleConstructorReturn(this, (Invert.__proto__ || Object.getPrototypeOf(Invert)).apply(this, arguments));
+	    }
+	
+	    _createClass(Invert, [{
+	        key: 'isInputAccepted',
+	        value: function isInputAccepted() {
+	            return this.parents.length == 1;
+	        }
+	    }, {
+	        key: 'process',
+	        value: function process() {
+	            var source = this.parents[0].texture;
+	
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var color = source.getPixel(x, y).invert();
+	                    this.texture.setPixel(x, y, color);
+	                }
+	            }
+	        }
+	    }]);
+
+	    return Invert;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
