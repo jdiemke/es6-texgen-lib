@@ -60,7 +60,7 @@
 	
 	var tg = _interopRequireWildcard(_es6TexgenLib);
 	
-	var _MyOperator = __webpack_require__(28);
+	var _MyOperator = __webpack_require__(29);
 	
 	var APEX = _interopRequireWildcard(_MyOperator);
 	
@@ -181,6 +181,17 @@
 	            var op21 = new tg.Ripple();
 	            op21.addParent(op20);
 	            this.displayTexture(op21);
+	
+	            var op22 = new tg.CellOperator();
+	            op22.setQuantity(26);
+	            op22.setLinearCombinationType(1);
+	            this.displayTexture(op22);
+	
+	            var op23 = new tg.ColorizeOperator();
+	            op23.setBackgroundColor(new tg.Color(1, 1, 0));
+	            op23.setForgroundColor(new tg.Color(0.2, 1, 1));
+	            op23.addParent(new tg.Checker());
+	            this.displayTexture(op23);
 	        }
 	    }, {
 	        key: 'displayTexture',
@@ -447,6 +458,15 @@
 	  enumerable: true,
 	  get: function get() {
 	    return _Ripple.Ripple;
+	  }
+	});
+	
+	var _Checker = __webpack_require__(28);
+	
+	Object.defineProperty(exports, 'Checker', {
+	  enumerable: true,
+	  get: function get() {
+	    return _Checker.Checker;
 	  }
 	});
 	var distribution = exports.distribution = {
@@ -1780,6 +1800,11 @@
 	    }
 	
 	    _createClass(CellOperator, [{
+	        key: 'setQuantity',
+	        value: function setQuantity(quantity) {
+	            this.quantity = quantity;
+	        }
+	    }, {
 	        key: 'process',
 	        value: function process() {
 	            this.uniformRandom();
@@ -2263,6 +2288,59 @@
 
 /***/ },
 /* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Checker = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _AbstractOperator2 = __webpack_require__(6);
+	
+	var _Color = __webpack_require__(3);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Checker = exports.Checker = function (_AbstractOperator) {
+	    _inherits(Checker, _AbstractOperator);
+	
+	    function Checker() {
+	        _classCallCheck(this, Checker);
+	
+	        var _this = _possibleConstructorReturn(this, (Checker.__proto__ || Object.getPrototypeOf(Checker)).call(this));
+	
+	        _this.quantity = 2;
+	        return _this;
+	    }
+	
+	    _createClass(Checker, [{
+	        key: 'process',
+	        value: function process() {
+	
+	            for (var y = 0; y < 256; y++) {
+	                for (var x = 0; x < 256; x++) {
+	                    var ss = Math.floor(x / 256 * 2 * this.quantity);
+	                    var tt = Math.floor(y / 256 * 2 * this.quantity);
+	                    var value = (ss + tt) % 2;
+	                    this.texture.setPixel(x, y, new _Color.Color(value));
+	                }
+	            }
+	        }
+	    }]);
+
+	    return Checker;
+	}(_AbstractOperator2.AbstractOperator);
+
+/***/ },
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
