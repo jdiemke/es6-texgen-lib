@@ -118,6 +118,17 @@ class Application {
         let op21 = new tg.Ripple();
         op21.addParent(op20);
         this.displayTexture(op21);
+
+        let op22 = new tg.CellOperator();
+        op22.setQuantity(26);
+        op22.setLinearCombinationType(1);
+        this.displayTexture(op22);
+
+        let op23 = new tg.ColorizeOperator();
+        op23.setBackgroundColor(new tg.Color(1, 1, 0));
+        op23.setForgroundColor(new tg.Color(0.2, 1, 1));
+        op23.addParent(new tg.Checker());
+        this.displayTexture(op23);
     }
 
     displayTexture(operator) {

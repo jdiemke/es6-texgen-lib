@@ -87,3 +87,6 @@ from './Invert.js';
 
 export {Ripple}
 from './Ripple.js';
+
+export {Checker}
+from './Checker.js';

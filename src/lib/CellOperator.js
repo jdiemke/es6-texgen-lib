@@ -26,6 +26,10 @@ export class CellOperator extends AbstractOperator {
         this.mosaic = false;
     }
 
+    setQuantity(quantity) {
+        this.quantity = quantity;
+    }
+
     process() {
         this.uniformRandom();
         this.distBuffer = new Float64Array(256 * 256);
