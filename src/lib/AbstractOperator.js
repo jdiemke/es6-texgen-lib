@@ -19,6 +19,7 @@ export class AbstractOperator {
     constructor() {
         this.texture = new Texture(256, 256);
         this.parents = new Array(0);
+        this.setDirty(true);
 
         OperatorRegistry.getInstance().register(this.constructor);
     }
@@ -36,15 +37,28 @@ export class AbstractOperator {
      * operator is processed.
      */
     evaluate() {
-        if (!this.isInputAccepted()) {
-            throw new InvalidParameterException();
-        }
+        if (this.isDirty()) {
+            if (!this.isInputAccepted()) {
+                throw new InvalidParameterException();
+            }
 
-        for (let i in this.parents) {
-            this.parents[i].evaluate();
-        }
+            for (let i in this.parents) {
+                this.parents[i].evaluate();
+            }
 
-        this.process();
+            this.process();
+            // remeber to set operator dirty if it changes its state ir if
+            // a child gets dirty ;)
+            this.setDirty(false);
+        }
+    }
+
+    setDirty(dirty) {
+        this.dirty = dirty;
+    }
+
+    isDirty() {
+        return this.dirty;
     }
 
     /**
@@ -62,6 +76,7 @@ export class AbstractOperator {
      */
     addParent(parent) {
         this.parents.push(parent);
+        this.setDirty(true);
     }
 
     /**
