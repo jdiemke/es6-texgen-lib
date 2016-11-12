@@ -83,47 +83,33 @@
 	    }, {
 	        key: 'createAndShowCanvas',
 	        value: function createAndShowCanvas() {
+	            var ops = [];
+	
 	            var operator = new tg.FillOperator();
 	            operator.setFillColor(new tg.Color(0.4, 0.5, 0.6));
-	            operator.evaluate();
-	
-	            var canvas = new tg.Canvas(256, 256);
-	            canvas.putImageData(operator.getTexture().getImageData());
-	            canvas.appendToHtmlDom();
+	            ops.push(operator);
 	
 	            var operator2 = new tg.SinePlasmaOperator();
 	            operator2.setColor(new tg.Color(1.0, 0.4, 0.8));
-	            operator2.evaluate();
-	
-	            var canvas2 = new tg.Canvas(256, 256);
-	            canvas2.putImageData(operator2.getTexture().getImageData());
-	            canvas2.appendToHtmlDom();
+	            ops.push(operator2);
 	
 	            var operator3 = new tg.AddOperator();
 	            operator3.addParent(operator);
 	            operator3.addParent(operator2);
-	            operator3.evaluate();
-	
-	            var canvas3 = new tg.Canvas(256, 256);
-	            canvas3.putImageData(operator3.getTexture().getImageData());
-	            canvas3.appendToHtmlDom();
+	            ops.push(operator3);
 	
 	            var operator4 = new tg.WhiteNoise();
 	            operator4.setSeed(23);
-	            operator4.evaluate();
-	
-	            var canvas4 = new tg.Canvas(256, 256);
-	            canvas4.putImageData(operator4.getTexture().getImageData());
-	            canvas4.appendToHtmlDom();
+	            ops.push(operator4);
 	
 	            var operator5 = new tg.LogicalOperator();
-	            this.displayTexture(operator5);
+	            ops.push(operator5);
 	
 	            var operator6 = new APEX.MyOperator();
-	            this.displayTexture(operator6);
+	            ops.push(operator6);
 	
 	            var operator7 = new tg.CellOperator();
-	            this.displayTexture(operator7);
+	            ops.push(operator7);
 	
 	            var operator8 = new tg.DistortOperator();
 	            operator8.addParent(operator7);
@@ -133,7 +119,6 @@
 	
 	            var op9 = new tg.ColorizeOperator();
 	            op9.addParent(operator8);
-	            op9.evaluate();
 	
 	            var op10 = new tg.Tile();
 	            op10.addParent(operator4);
@@ -141,57 +126,83 @@
 	            op11.addParent(op10);
 	            op11.setBackgroundColor(new tg.Color(1, 1, 0));
 	            op11.setForgroundColor(new tg.Color(1, 0, 0));
-	            this.displayTexture(op11);
+	            ops.push(op11);
 	
 	            var op12 = new tg.Turbolence();
 	            operator7.setLinearCombinationType(2);
 	            op12.addParent(operator7);
-	            this.displayTexture(op12);
+	            ops.push(op12);
 	
 	            var op13 = new tg.PlasmaFractal();
 	            var op14 = new tg.ColorizeOperator();
 	            op14.addParent(op13);
-	            this.displayTexture(op14);
+	            ops.push(op14);
 	
 	            var op15 = new tg.AdjustIntensity();
 	            op15.addParent(op14);
-	            this.displayTexture(op15);
+	            ops.push(op15);
 	
 	            var op16 = new tg.AlphaBlend();
 	            op16.addParent(op14);
 	            op16.addParent(operator7);
-	            this.displayTexture(op16);
+	            ops.push(op16);
 	
 	            var op17 = new tg.Chrome();
 	            op17.addParent(op16);
-	            this.displayTexture(op17);
+	            ops.push(op17);
 	
 	            var op18 = new tg.Grayscale();
 	            op18.addParent(op17);
-	            this.displayTexture(op18);
+	            ops.push(op18);
 	
 	            var op19 = new tg.Pixelize();
 	            op19.addParent(op16);
-	            this.displayTexture(op19);
+	            ops.push(op19);
 	
 	            var op20 = new tg.Invert();
 	            op20.addParent(op19);
-	            this.displayTexture(op20);
+	            ops.push(op20);
 	
 	            var op21 = new tg.Ripple();
 	            op21.addParent(op20);
-	            this.displayTexture(op21);
+	            ops.push(op21);
 	
 	            var op22 = new tg.CellOperator();
 	            op22.setQuantity(26);
 	            op22.setLinearCombinationType(1);
-	            this.displayTexture(op22);
+	            ops.push(op22);
 	
 	            var op23 = new tg.ColorizeOperator();
 	            op23.setBackgroundColor(new tg.Color(1, 1, 0));
 	            op23.setForgroundColor(new tg.Color(0.2, 1, 1));
 	            op23.addParent(new tg.Checker());
-	            this.displayTexture(op23);
+	            ops.push(op23);
+	
+	            console.log("beofre");
+	            this.recursion(0, ops);
+	            console.log("after");
+	        }
+	    }, {
+	        key: 'recursion',
+	        value: function recursion(n, ops) {
+	            var _this = this;
+	
+	            if (n < ops.length) {
+	                (function () {
+	                    var currentOperator = ops[n];
+	
+	                    if (currentOperator && currentOperator instanceof tg.AbstractOperator) {
+	                        setTimeout(function () {
+	                            _this.displayTexture(currentOperator);
+	                            _this.recursion(n + 1, ops);
+	                        }, 200);
+	                    } else {
+	                        _this.recursion(n + 1, ops);
+	                    }
+	                })();
+	            } else {
+	                return;
+	            }
 	        }
 	    }, {
 	        key: 'displayTexture',
@@ -783,6 +794,7 @@
 	
 	        this.texture = new _Texture.Texture(256, 256);
 	        this.parents = new Array(0);
+	        this.setDirty(true);
 	
 	        _OperatorRegistry.OperatorRegistry.getInstance().register(this.constructor);
 	    }
@@ -807,15 +819,30 @@
 	    }, {
 	        key: 'evaluate',
 	        value: function evaluate() {
-	            if (!this.isInputAccepted()) {
-	                throw new _InvalidParameterException.InvalidParameterException();
-	            }
+	            if (this.isDirty()) {
+	                if (!this.isInputAccepted()) {
+	                    throw new _InvalidParameterException.InvalidParameterException();
+	                }
 	
-	            for (var i in this.parents) {
-	                this.parents[i].evaluate();
-	            }
+	                for (var i in this.parents) {
+	                    this.parents[i].evaluate();
+	                }
 	
-	            this.process();
+	                this.process();
+	                // remeber to set operator dirty if it changes its state ir if
+	                // a child gets dirty ;)
+	                this.setDirty(false);
+	            }
+	        }
+	    }, {
+	        key: 'setDirty',
+	        value: function setDirty(dirty) {
+	            this.dirty = dirty;
+	        }
+	    }, {
+	        key: 'isDirty',
+	        value: function isDirty() {
+	            return this.dirty;
 	        }
 	
 	        /**
@@ -839,6 +866,7 @@
 	        key: 'addParent',
 	        value: function addParent(parent) {
 	            this.parents.push(parent);
+	            this.setDirty(true);
 	        }
 	
 	        /**
