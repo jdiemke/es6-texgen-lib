@@ -178,26 +178,28 @@
 	            op23.addParent(new tg.Checker());
 	            ops.push(op23);
 	
-	            console.log("beofre");
-	            this.recursion(0, ops);
-	            console.log("after");
+	            this.drawOperatorArray(ops);
 	        }
 	    }, {
-	        key: 'recursion',
-	        value: function recursion(n, ops) {
+	        key: 'drawOperatorArray',
+	        value: function drawOperatorArray(ops) {
+	            this.drawOperatorArrayRecursive(0, ops);
+	        }
+	    }, {
+	        key: 'drawOperatorArrayRecursive',
+	        value: function drawOperatorArrayRecursive(n, ops) {
 	            var _this = this;
 	
 	            if (n < ops.length) {
 	                (function () {
 	                    var currentOperator = ops[n];
-	
 	                    if (currentOperator && currentOperator instanceof tg.AbstractOperator) {
 	                        setTimeout(function () {
 	                            _this.displayTexture(currentOperator);
-	                            _this.recursion(n + 1, ops);
+	                            _this.drawOperatorArrayRecursive(n + 1, ops);
 	                        }, 200);
 	                    } else {
-	                        _this.recursion(n + 1, ops);
+	                        _this.drawOperatorArrayRecursive(n + 1, ops);
 	                    }
 	                })();
 	            } else {

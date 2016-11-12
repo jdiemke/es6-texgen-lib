@@ -115,21 +115,23 @@ class Application {
         op23.addParent(new tg.Checker());
         ops.push(op23);
 
-        console.log("beofre");
-        this.recursion(0, ops);
-        console.log("after");
+        this.drawOperatorArray(ops);
     }
 
-    recursion(n, ops) {
+    drawOperatorArray(ops) {
+        this.drawOperatorArrayRecursive(0, ops);
+    }
+
+    drawOperatorArrayRecursive(n, ops) {
         if (n < ops.length) {
             let currentOperator = ops[n];
             if (currentOperator && (currentOperator instanceof tg.AbstractOperator)) {
                 setTimeout(() => {
                     this.displayTexture(currentOperator);
-                    this.recursion(n + 1, ops);
+                    this.drawOperatorArrayRecursive(n + 1, ops);
                 }, 200);
             } else {
-                this.recursion(n + 1, ops);
+                this.drawOperatorArrayRecursive(n + 1, ops);
             }
         } else {
             return;
