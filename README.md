@@ -1,4 +1,7 @@
 # es6-texgen-lib
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/jdiemke/es6-texgen-lib.svg)](https://greenkeeper.io/)
+
 A node-based procedural texture generation library written in ECMAScript 6.
 ### How to build
 Type the following commands into your shell:
