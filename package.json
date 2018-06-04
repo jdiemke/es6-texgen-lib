@@ -17,10 +17,10 @@
     "url": "https://github.com/jdiemke/es6-texgen-lib/issues"
   },
   "devDependencies": {
-    "http-server": "~0.9.0",
-    "babel-core": "~6.17.0",
-    "babel-loader": "~6.2.5",
-    "webpack": "~1.13.2",
-    "babel-preset-es2015": "~6.16.0"
+    "http-server": "~0.11.1",
+    "babel-core": "~6.26.3",
+    "babel-loader": "~7.1.4",
+    "webpack": "~4.10.2",
+    "babel-preset-es2015": "~6.24.1"
   }
 }
